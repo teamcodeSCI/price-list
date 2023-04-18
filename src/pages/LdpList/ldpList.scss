@@ -1,0 +1,43 @@
+.ldpList{
+    // background: #fff;
+    padding: 15px;
+    border-radius: 4px;
+    &__header{
+        margin-bottom: 20px;
+        span{
+            display: block;
+            font-size: 26px;
+            font-weight: 500;
+        }
+    }
+    &__control{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    &__addNew{
+        align-self: stretch;
+        width: fit-content;
+        button{
+            align-items: center;
+            background: linear-gradient(118deg,#227ff4,#227ff4b2);
+            border: none;
+            border-radius: 6px;
+            box-shadow: 0 1px 5px 0 rgba(34,127,244,.7);
+            cursor: pointer;
+            display: inline-flex;
+            height: 36.5px;
+            justify-content: center;
+            transition: all .2s linear;
+            width: 36.5px;
+            &:hover{
+                box-shadow: 0 1px 7px 0 #227ff4;
+            }
+            img{
+                display: block;
+                height: auto;
+                width: 25px;
+            }
+        }
+    }
+}

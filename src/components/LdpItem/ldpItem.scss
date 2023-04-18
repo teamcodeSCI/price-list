@@ -1,0 +1,71 @@
+.ldpItem{
+    background: #fff;
+    border-radius: 9px;
+    box-shadow: 0 1px 5px 0 rgb(0 0 0/15%);
+    color: #686868;
+    cursor: pointer;
+    display: flex;
+    margin-bottom: 13px;
+    padding: 10px 20px;
+    position: relative;
+    transition: all .2s linear;
+    gap: 20px;
+    font-size: 14px;
+    &__title{
+        width: 45%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    &__cate{
+        width: 20%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    &__status{
+        select{
+            outline: none;
+           border: none;
+           background: #ccc;
+           border-radius: 4px;
+           padding: 2px 5px;
+           color: #686868;
+           option{
+            background: #fff;
+           }
+        }
+    }
+    &__action{
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        position: absolute;
+        right: 15px;
+        top: 50%;
+       
+        transform: translateY(-50%);
+        button{
+            border: none;
+            cursor: pointer;
+            display: block;
+            height: 22px;
+            transition: all .2s linear;
+            width: 22px;
+        }
+    }
+    &__delete{
+        background: url(../../assets/icons/delete-icon.svg) center 0 no-repeat;
+        background-size: 100%;
+        &:hover{
+            background: url(../../assets/icons/deleteActive-icon.svg) center 0 no-repeat;
+        }
+    }
+    &__detail{
+        background: url(../../assets/icons/dots-icon.svg) center 0 no-repeat;
+        background-size: 100%;
+        &:hover{
+            background: url(../../assets/icons/dotsActive-icon.svg) center 0 no-repeat;
+        }
+    }
+}

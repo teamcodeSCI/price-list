@@ -1,0 +1,38 @@
+.header{
+    background: #fff;
+    padding: 13px 0;
+    box-shadow: 0 0 5px 2px rgba(0,0,0,.1);
+    
+    &__box{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__logo{
+        width: 30%;
+        max-width: 120px;
+        img{
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    }
+    &__logout{
+        align-items: center;
+        background: none;
+        border: none;
+        color: #686868;
+        cursor: pointer;
+        display: flex;
+        gap: 5px;
+        justify-content: center;
+        padding: 0;
+        &::before{
+            content:'';
+            background: url(../../assets/icons/logout-icon.svg) center 0 no-repeat;
+            background-size: 100%;
+            width: 20px;
+            height: 20px;
+        }
+    }
+}
