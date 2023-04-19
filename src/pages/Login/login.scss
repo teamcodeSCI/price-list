@@ -1,0 +1,57 @@
+.login {
+    &__title {
+        color: #333;
+        font-size: 24px;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+    }
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        p {
+            margin: 0;
+            color: red;
+            font-style: italic;
+        }
+        button {
+            background: #2aa9f3;
+            border: none;
+            border-radius: 25px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 20px;
+            padding: 13px 43px;
+            text-transform: uppercase;
+        }
+    }
+    &__input {
+        background: #e6e6e6;
+        border-radius: 25px;
+        padding: 13px 43px;
+        position: relative;
+        input {
+            background: #e6e6e6;
+            border: none;
+            color: #666;
+            font-size: 15px;
+            outline: none;
+            width: 100%;
+        }
+    }
+    &__icon {
+        left: 20px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 15px;
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    }
+}

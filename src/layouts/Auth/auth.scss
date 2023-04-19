@@ -1,0 +1,50 @@
+.auth {
+    background: linear-gradient(118deg, #227ff4, rgba(34, 127, 244, 0.6980392157));
+    height: 100vh;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    &__box {
+        background: #fff;
+        border-radius: 10px;
+        min-height: 70vh;
+        display: flex;
+        justify-content: space-around;
+        max-width: 960px;
+        width: 90%;
+        align-items: center;
+        padding: 20px;
+    }
+    &__img {
+        width: 35%;
+        min-width: 336px;
+        img {
+            display: block;
+            height: auto;
+            width: 100%;
+        }
+    }
+    &__wrapper {
+        max-width: 300px;
+        min-width: 270px;
+        text-align: center;
+        width: 35%;
+    }
+    @media (max-width: 767px) {
+        &__box {
+            min-height: 50vh;
+            max-width: 428px;
+            width: 90%;
+            padding: 20px 0;
+        }
+        &__img {
+            display: none;
+        }
+        &__wrapper {
+            max-width: none;
+            min-width: 0;
+            width: 80%;
+        }
+    }
+}
