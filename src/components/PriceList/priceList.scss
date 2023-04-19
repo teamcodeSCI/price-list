@@ -1,0 +1,43 @@
+.priceList {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 10;
+}
+.priceList__box {
+    position: relative;
+    width: 90%;
+    max-width: 1000px;
+    background: #fff;
+    margin: 15vh auto 0;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 20px;
+}
+.priceList__close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+}
+.priceList__close > img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.priceList__header {
+    margin-bottom: 20px;
+}
+.priceList__header > span {
+    font-size: 24px;
+    display: block;
+}
+.priceList__body {
+    overflow-y: overlay;
+    height: 500px;
+}

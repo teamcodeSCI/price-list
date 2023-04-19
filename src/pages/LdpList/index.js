@@ -9,12 +9,14 @@ import Pagination from '../../components/Pagination';
 const LdpList = () => {
   const [search, setSearch] = useState('');
   const [openAddLdp, setOpenLdp] = useState(false);
+
   const [pageNum, setPageNum] = useState(1);
   const range = 5;
   const pageCount = 10;
   const handleAddLdp = () => {
     setOpenLdp(!openAddLdp);
   };
+
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
