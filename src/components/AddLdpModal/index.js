@@ -1,12 +1,10 @@
 import React, { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { useOutside } from '../../utils/help';
 import './addLdpModal.scss';
 
 const AddLdpModal = ({ handleAddLdp }) => {
   const wrapperRef = useRef(null);
-  const dispatch = useDispatch();
   const [info, setInfo] = useState({ link: '', cateService: '' });
 
   const handleInfo = (e) => {
