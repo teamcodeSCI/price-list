@@ -1,0 +1,98 @@
+.priceItem {
+    position: relative;
+    align-items: center;
+    background: #fff;
+    border-radius: 9px;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    color: #686868;
+    cursor: pointer;
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 10px 20px;
+    width: 99%;
+    list-style: none;
+    li {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        input {
+            width: 100%;
+            -moz-appearance: textfield;
+            padding: 3px 5px;
+            border: none;
+            border-bottom: 1px solid #ccc;
+        }
+        input:disabled {
+            background: none;
+            border: none;
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    }
+    &__action {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        button {
+            border: none;
+            cursor: pointer;
+            display: block;
+            height: 22px;
+            transition: all 0.2s linear;
+            width: 22px;
+        }
+    }
+    &__edit {
+        background: url(../../assets/icons/edit-icon.svg) center 0 no-repeat;
+        background-size: 100%;
+        &:hover {
+            background: url(../../assets/icons/editActive-icon.svg) center 0 no-repeat;
+        }
+    }
+    &__delete {
+        background: url(../../assets/icons/delete-icon.svg) center 0 no-repeat;
+        background-size: 100%;
+        &:hover {
+            background: url(../../assets/icons/deleteActive-icon.svg) center 0 no-repeat;
+        }
+    }
+    &__save {
+        background: url(../../assets/icons/check-icon.svg) center 0 no-repeat;
+        background-size: 100%;
+    }
+    &__cancel {
+        background: url(../../assets/icons/closeActive-icon.svg) center 0 no-repeat;
+        background-size: 100%;
+    }
+    &__name {
+        width: 25%;
+    }
+    &__price {
+        width: 11%;
+    }
+    &__percent {
+        width: 7%;
+        max-width: 65px;
+    }
+    &__discount {
+        width: 11%;
+    }
+    &__promotion {
+        width: 20%;
+    }
+    &__description {
+        width: 20%;
+        input {
+            width: 70% !important;
+        }
+    }
+}
