@@ -6,7 +6,7 @@ import LdpItem from '../../components/LdpItem';
 import AddLdpModal from '../../components/AddLdpModal';
 import Pagination from '../../components/Pagination';
 
-const LdpList = () => {
+const LdpList = ({ user }) => {
   const [search, setSearch] = useState('');
   const [openAddLdp, setOpenLdp] = useState(false);
 
@@ -20,10 +20,11 @@ const LdpList = () => {
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
+
   return (
     <div className='ldpList'>
       <div className='ldpList__header'>
-        <span>Thương hiệu Paris</span>8 Landing Page
+        <span>Thương hiệu {user.brand}</span>8 Landing Page
       </div>
       <div className='ldpList__control'>
         <div className='ldpList__search'>

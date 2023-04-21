@@ -5,11 +5,19 @@ import { APP_URL } from './utils/const';
 import Auth from './layouts/Auth';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ProtectedRoute from './router/ProtectedRoute';
 
 function App() {
   return (
     <Routes>
-      <Route path={APP_URL} element={<Home />} />
+      <Route
+        path={APP_URL}
+        element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        }
+      />
       <Route path={`${APP_URL}/auth`} element={<Auth />}>
         <Route path={`${APP_URL}/auth/login`} element={<Login />} />
         <Route path={`${APP_URL}/auth/register`} element={<Register />} />

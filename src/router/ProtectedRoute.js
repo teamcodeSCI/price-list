@@ -1,10 +1,11 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import { APP_URL } from '../utils/const';
 
 const ProtectedRoute = ({ children }) => {
   let auth = Boolean(localStorage.getItem('access_token'));
   if (!auth) {
-    return <Navigate to={`/login`} replace />;
+    return <Navigate to={`${APP_URL}/auth/login`} replace />;
   }
   return children;
 };

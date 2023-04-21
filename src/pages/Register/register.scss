@@ -28,11 +28,30 @@
             text-transform: uppercase;
         }
     }
+    &__select {
+        padding: 0 10px 0 0;
+        background: #e6e6e6;
+        border-radius: 25px;
+        select {
+            border-radius: 25px;
+            padding: 13px 30px 13px 43px;
+            background: #e6e6e6;
+            border: none;
+            color: #666;
+            font-size: 15px;
+            outline: none;
+            width: 100%;
+            option {
+                background: #fff;
+            }
+        }
+    }
     &__input {
         background: #e6e6e6;
         border-radius: 25px;
         padding: 13px 43px;
         position: relative;
+
         input {
             background: #e6e6e6;
             border: none;
