@@ -9,7 +9,7 @@ import Pagination from '../../components/Pagination';
 const LdpList = ({ user }) => {
   const [search, setSearch] = useState('');
   const [openAddLdp, setOpenLdp] = useState(false);
-
+  const brand = user.brand || '';
   const [pageNum, setPageNum] = useState(1);
   const range = 5;
   const pageCount = 10;
@@ -24,7 +24,7 @@ const LdpList = ({ user }) => {
   return (
     <div className='ldpList'>
       <div className='ldpList__header'>
-        <span>Thương hiệu {user.brand}</span>8 Landing Page
+        <span>Thương hiệu {brand}</span>8 Landing Page
       </div>
       <div className='ldpList__control'>
         <div className='ldpList__search'>

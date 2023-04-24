@@ -81,6 +81,7 @@ export const register = createAsyncThunk('auth/register', async (info) => {
   if (data.error) {
     return data.error;
   }
+  localStorage.clear();
   return data;
 });
 export const getLogin = createAsyncThunk('auth/getLogin', async (info) => {
@@ -115,6 +116,10 @@ export const getUser = createAsyncThunk('auth/getUser', async () => {
       Accept: 'application/json',
     },
   });
+
+  if (response.status === 500) {
+    return { data: { brand: '' } };
+  }
   return await response.json();
 });
 const authReducer = authSlice.reducer;

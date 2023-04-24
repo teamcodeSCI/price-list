@@ -7,6 +7,7 @@ import { currentUserSelector, getUser } from '../../features/auth/authSlice';
 const Home = () => {
   const dispatch = useDispatch();
   const user = useSelector(currentUserSelector);
+
   useEffect(() => {
     dispatch(getUser());
   }, [dispatch]);
