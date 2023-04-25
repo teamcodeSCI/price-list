@@ -1,6 +1,6 @@
 import React from 'react';
 import './pagination.scss';
-const Pagination = ({ pageNum, setPageNum, pageCount, range }) => {
+const Pagination = ({ pageNum, setPageNum, pageCount, range, brandStyle, brandClass }) => {
   const pagiPage = [];
   const pagiRange = pageCount <= range ? pageCount - 1 : range;
   const pagiLimitEnd = pagiRange + pageNum < pageCount ? pagiRange + pageNum : pageCount;
@@ -24,7 +24,7 @@ const Pagination = ({ pageNum, setPageNum, pageCount, range }) => {
     setPageNum(Number(e.target.innerHTML));
   };
   return (
-    <ul className='pagination'>
+    <ul className={'pagination ' + brandClass}>
       <li className='pagination__btn' onClick={firstPage}>
         ❮❮
       </li>
@@ -32,7 +32,7 @@ const Pagination = ({ pageNum, setPageNum, pageCount, range }) => {
         ❮
       </li>
       {pagiPage.map((item, idx) => (
-        <li onClick={numPage} key={idx} className={pageNum === item ? 'pagination__active' : ''}>
+        <li onClick={numPage} key={idx} style={pageNum === item ? brandStyle : {}}>
           {item}
         </li>
       ))}

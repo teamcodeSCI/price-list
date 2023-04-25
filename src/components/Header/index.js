@@ -1,14 +1,16 @@
 import React from 'react';
 import './header.scss';
-import logo from '../../assets/images/logo.png';
+
 import { useDispatch } from 'react-redux';
 import { getLogout } from '../../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { APP_URL } from '../../utils/const';
+import { brandStyle } from '../../utils/help';
 
-const Header = () => {
+const Header = ({ user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const logo = brandStyle(user.brand);
   const handleLogout = () => {
     dispatch(getLogout());
     navigate(`${APP_URL}/auth/login`);
@@ -18,7 +20,7 @@ const Header = () => {
       <div className='container'>
         <div className='header__box'>
           <div className='header__logo'>
-            <img width={280} height={150} src={logo} alt='' />
+            <img width={280} height={150} src={logo.logo} alt='' />
           </div>
           <div className='header__control'>
             <button className='header__logout' onClick={handleLogout}>

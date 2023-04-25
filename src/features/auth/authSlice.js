@@ -117,10 +117,11 @@ export const getUser = createAsyncThunk('auth/getUser', async () => {
     },
   });
 
-  if (response.status === 500) {
+  const data = await response.json();
+  if (!data.data) {
     return { data: { brand: '' } };
   }
-  return await response.json();
+  return data;
 });
 const authReducer = authSlice.reducer;
 export default authReducer;

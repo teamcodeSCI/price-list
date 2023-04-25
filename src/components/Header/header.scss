@@ -1,23 +1,23 @@
-.header{
+.header {
     background: #fff;
     padding: 13px 0;
-    box-shadow: 0 0 5px 2px rgba(0,0,0,.1);
-    
-    &__box{
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
+
+    &__box {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
-    &__logo{
+    &__logo {
         width: 30%;
-        max-width: 120px;
-        img{
+        max-width: 150px;
+        img {
             display: block;
             width: 100%;
             height: auto;
         }
     }
-    &__logout{
+    &__logout {
         align-items: center;
         background: none;
         border: none;
@@ -27,8 +27,8 @@
         gap: 5px;
         justify-content: center;
         padding: 0;
-        &::before{
-            content:'';
+        &::before {
+            content: "";
             background: url(../../assets/icons/logout-icon.svg) center 0 no-repeat;
             background-size: 100%;
             width: 20px;

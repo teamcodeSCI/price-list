@@ -5,6 +5,7 @@ import plusIcon from '../../assets/icons/plus-icon.svg';
 import LdpItem from '../../components/LdpItem';
 import AddLdpModal from '../../components/AddLdpModal';
 import Pagination from '../../components/Pagination';
+import { brandStyle } from '../../utils/help';
 
 const LdpList = ({ user }) => {
   const [search, setSearch] = useState('');
@@ -13,6 +14,7 @@ const LdpList = ({ user }) => {
   const [pageNum, setPageNum] = useState(1);
   const range = 5;
   const pageCount = 10;
+  const style = brandStyle(brand);
   const handleAddLdp = () => {
     setOpenLdp(!openAddLdp);
   };
@@ -31,7 +33,7 @@ const LdpList = ({ user }) => {
           <Search handleSearch={handleSearch} search={search} placeholder='Tìm kiếm ...' />
         </div>
         <div className='ldpList__addNew'>
-          <button onClick={handleAddLdp}>
+          <button onClick={handleAddLdp} style={style.style}>
             <img width={15} height={15} src={plusIcon} alt='' />
           </button>
         </div>
@@ -44,7 +46,14 @@ const LdpList = ({ user }) => {
         <LdpItem />
       </div>
       <div className='ldpList__pagination'>
-        <Pagination pageNum={pageNum} setPageNum={setPageNum} pageCount={pageCount} range={range} />
+        <Pagination
+          brandStyle={style.style}
+          brandClass={style.className}
+          pageNum={pageNum}
+          setPageNum={setPageNum}
+          pageCount={pageCount}
+          range={range}
+        />
       </div>
       {openAddLdp && <AddLdpModal handleAddLdp={handleAddLdp} />}
     </div>

@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Home from './layouts/Home';
 import { APP_URL } from './utils/const';

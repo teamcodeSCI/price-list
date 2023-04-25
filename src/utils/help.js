@@ -1,4 +1,9 @@
 import { useEffect } from 'react';
+import logoSCI from '../assets/images/logo.png';
+import logoKN from '../assets/images/logoKN.svg';
+import logoPR from '../assets/images/logoPR.svg';
+import logoDA from '../assets/images/logoDA.png';
+import logoHH from '../assets/images/logoHH.svg';
 
 export const splitLoginStr = (str) => {
   const arr = str.split('/');
@@ -39,4 +44,34 @@ export const formatDate = (date) => {
     return `${newDate.getDate()}/${newDate.getMonth() + 1}/${newDate.getFullYear()}`;
   }
   return '';
+};
+export const brandStyle = (brand) => {
+  let style = {};
+  let logo = logoSCI;
+  let className = '';
+  switch (brand) {
+    case 'Paris':
+      style = { background: 'linear-gradient(to right, #2A7CD6, #0ea5ed)', color: '#fff' };
+      logo = logoPR;
+      className = 'prPagi';
+      break;
+    case 'Kangnam':
+      style = { background: 'linear-gradient(to right, #fb4b14, #ff6618)', color: '#fff' };
+      logo = logoKN;
+      className = 'knPagi';
+      break;
+    case 'Đông Á':
+      style = { background: '#37a59f', color: '#fff' };
+      logo = logoDA;
+      className = 'daPagi';
+      break;
+    case 'Hồng Hà':
+      style = { background: '#cb6da8', color: '#fff' };
+      logo = logoHH;
+      className = 'hhPagi';
+      break;
+    default:
+      break;
+  }
+  return { style, logo, className };
 };
