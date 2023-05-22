@@ -2,19 +2,13 @@ import React, { useEffect, useState } from 'react';
 import './register.scss';
 import mailIcon from '../../assets/icons/mail-icon.svg';
 import lockIcon from '../../assets/icons/lock-icon.svg';
-import { useDispatch, useSelector } from 'react-redux';
-import { getBrand } from '../../features/brand/brandApi';
-import { brandsSelector } from '../../features/brand/brandSlice';
-import { messageSelector, register, statusSelector } from '../../features/auth/authSlice';
+
 import { useNavigate } from 'react-router-dom';
 import { APP_URL } from '../../utils/const';
 
 const Register = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const brand = useSelector(brandsSelector);
-  const status = useSelector(statusSelector);
-  const message = useSelector(messageSelector);
+
   const [info, setInfo] = useState({ name: '', email: '', password: '', retypePassword: '', brand: '' });
   const [notify, setNotify] = useState('');
   const handleInfo = (e) => {
@@ -29,27 +23,13 @@ const Register = () => {
       setNotify('Nhập lại mật khẩu không đúng !');
       return;
     }
-    dispatch(
-      register({
-        name: info.name,
-        email: info.email,
-        password: info.password,
-        c_password: info.retypePassword,
-        brand_id: info.brand,
-      })
-    );
   };
   useEffect(() => {
-    dispatch(getBrand());
-    if (!status) {
-      setNotify(message);
-      return;
-    }
     setNotify('Đăng ký thành công');
     setTimeout(() => {
       navigate(`${APP_URL}/auth/login`);
     }, 1000);
-  }, [dispatch, status, message, navigate]);
+  }, [navigate]);
   return (
     <div className='register'>
       <div className='register__title'>Đăng ký</div>
@@ -90,7 +70,7 @@ const Register = () => {
             <option value={''} disabled>
               - - - Chọn thương hiệu - - -
             </option>
-            {brand.map((item) => (
+            {[].map((item) => (
               <option key={item.id} value={item.id}>
                 {item.name}
               </option>
