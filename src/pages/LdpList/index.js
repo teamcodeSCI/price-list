@@ -7,14 +7,15 @@ import AddLdpModal from '../../components/AddLdpModal';
 import Pagination from '../../components/Pagination';
 import { brandStyle } from '../../utils/help';
 
-const LdpList = ({ user }) => {
+const LdpList = ({ brand }) => {
   const [search, setSearch] = useState('');
   const [openAddLdp, setOpenLdp] = useState(false);
-  const brand = user.brand || '';
+
   const [pageNum, setPageNum] = useState(1);
   const range = 5;
   const pageCount = 10;
   const style = brandStyle(brand);
+
   const handleAddLdp = () => {
     setOpenLdp(!openAddLdp);
   };

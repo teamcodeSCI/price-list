@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { APP_URL } from '../../utils/const';
 import { brandStyle } from '../../utils/help';
 
-const Header = ({ user }) => {
+const Header = ({ brand }) => {
   const navigate = useNavigate();
-  const logo = brandStyle(user.brand);
+  const logo = brandStyle(brand);
   const handleLogout = () => {
     localStorage.clear();
     navigate(`${APP_URL}/auth/login`);
