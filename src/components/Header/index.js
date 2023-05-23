@@ -8,6 +8,7 @@ const Header = ({ user }) => {
   const navigate = useNavigate();
   const logo = brandStyle(user.brand);
   const handleLogout = () => {
+    localStorage.clear();
     navigate(`${APP_URL}/auth/login`);
   };
   return (

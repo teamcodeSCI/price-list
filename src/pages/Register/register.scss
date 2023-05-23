@@ -73,4 +73,9 @@
             display: block;
         }
     }
+    &__loading {
+        background: #ccc !important;
+        display: flex;
+        justify-content: center;
+    }
 }

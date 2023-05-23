@@ -75,3 +75,8 @@ export const brandStyle = (brand) => {
   }
   return { style, logo, className };
 };
+export const pressEnter = (e, func) => {
+  if (e.key === 'Enter') {
+    func();
+  }
+};
