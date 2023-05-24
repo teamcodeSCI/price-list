@@ -1,11 +1,11 @@
-.pagination{
+.pagination {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
     gap: 3px;
 }
-.pagination >li{
+.pagination > li {
     cursor: pointer;
     display: inline-flex;
     width: 30px;
@@ -17,14 +17,10 @@
     border-radius: 4px;
     transition: all 0.2s linear;
 }
-.pagination >li:hover{
-    color: #FFF !important; 
-    background: linear-gradient(118deg,#227ff4,#227ff4b2)!important
+.pagination__active {
+    color: #fff !important;
+    background: linear-gradient(118deg, #227ff4, #227ff4b2) !important;
 }
-.pagination__active{
-    color: #FFF !important; 
-    background: linear-gradient(118deg,#227ff4,#227ff4b2) !important
-}
-.pagination__btn{
+.pagination__btn {
     font-size: 12px;
 }

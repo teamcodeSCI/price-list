@@ -49,29 +49,46 @@ export const brandStyle = (brand) => {
   let style = {};
   let logo = logoSCI;
   let className = '';
+  let borderLoading = '';
   switch (brand) {
     case 'Paris':
       style = { background: 'linear-gradient(to right, #2A7CD6, #0ea5ed)', color: '#fff' };
       logo = logoPR;
       className = 'prPagi';
+      borderLoading = '#0ea5ed';
       break;
     case 'Kangnam':
       style = { background: 'linear-gradient(to right, #fb4b14, #ff6618)', color: '#fff' };
       logo = logoKN;
       className = 'knPagi';
+      borderLoading = '#ff6618';
       break;
     case 'Đông Á':
       style = { background: '#37a59f', color: '#fff' };
       logo = logoDA;
       className = 'daPagi';
+      borderLoading = '#37a59f';
       break;
     case 'Hồng Hà':
       style = { background: '#cb6da8', color: '#fff' };
       logo = logoHH;
       className = 'hhPagi';
+      borderLoading = '#cb6da8';
       break;
     default:
       break;
   }
-  return { style, logo, className };
+  return { style, logo, className, borderLoading };
+};
+export const pressEnter = (e, func) => {
+  if (e.key === 'Enter') {
+    func();
+  }
+};
+export const strToBool = (value) => {
+  if (value && typeof value === 'string') {
+    if (value.toLowerCase() === 'true') return true;
+    if (value.toLowerCase() === 'false') return false;
+  }
+  return value;
 };

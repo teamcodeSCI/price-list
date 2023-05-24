@@ -40,7 +40,16 @@
             }
         }
     }
-    &__pagination{
+    &__main {
+        p {
+            text-align: center;
+        }
+    }
+    &__loading {
+        display: flex;
+        justify-content: center;
+    }
+    &__pagination {
         align-items: center;
         display: flex;
         justify-content: center;
