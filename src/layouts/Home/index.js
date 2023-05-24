@@ -11,11 +11,16 @@ const Home = () => {
   return (
     <div className='home'>
       <div className='home__header'>
-        <Header brand={isSuccessUser ? dataUser.data.data.brand.name : ''} />
+        <Header brand={isSuccessUser ? dataUser.data.data.brand.name : ''} isSuccessUser={isSuccessUser} />
       </div>
       <div className='home__main'>
         <div className='container'>
-          <LdpList brand={isSuccessUser ? dataUser.data.data.brand.name : ''} />
+          <LdpList
+            brand={isSuccessUser ? dataUser.data.data.brand.name : ''}
+            token={token}
+            brandId={isSuccessUser ? dataUser.data.data.brand_id : ''}
+            isSuccessUser={isSuccessUser}
+          />
         </div>
       </div>
     </div>
