@@ -81,17 +81,20 @@ const LdpList = ({ brand, token, brandId, isSuccessUser }) => {
           </div>
         )}
       </div>
-      <div className='ldpList__pagination'>
-        <Pagination
-          brandStyle={style.style}
-          brandClass={style.className}
-          pageNum={pageNum}
-          setPageNum={setPageNum}
-          pageCount={pageCount}
-          range={range}
-        />
-      </div>
-      {openAddLdp && <AddLdpModal handleAddLdp={handleAddLdp} />}
+      {isSuccessUser && isSuccessLanding && dataLanding.data.data.length > paginationLimit && (
+        <div className='ldpList__pagination'>
+          <Pagination
+            brandStyle={style.style}
+            brandClass={style.className}
+            pageNum={pageNum}
+            setPageNum={setPageNum}
+            pageCount={pageCount}
+            range={range}
+          />
+        </div>
+      )}
+
+      {openAddLdp && <AddLdpModal brandId={brandId} handleAddLdp={handleAddLdp} />}
     </div>
   );
 };
