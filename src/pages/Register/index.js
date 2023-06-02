@@ -1,25 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './register.scss';
 import mailIcon from '../../assets/icons/mail-icon.svg';
 import lockIcon from '../../assets/icons/lock-icon.svg';
 import Loading from '../../components/Loading';
 import { useNavigate } from 'react-router-dom';
-import { APP_URL } from '../../utils/const';
-import { useRegister } from '../../services/authService';
-import { useBrand } from '../../services/brandService';
 import { pressEnter } from '../../utils/help';
+import { fetchBrand } from '../../apis/brand';
+import { brandSelector, brandLoadedSelector } from '../../services/brandService';
+import { authErrorSelector, authLoadedSelector, authLoadingSelector } from '../../services/authService';
+import { register } from '../../apis/auth';
 
 const Register = () => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const [info, setInfo] = useState({ name: '', email: '', password: '', c_password: '', brand_id: '' });
   const [notify, setNotify] = useState('');
   const handleInfo = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
-  const { isLoadingRegister, mutateRegister } = useRegister();
-
-  const { dataBrand, isSuccessBrand } = useBrand();
+  const brand = useSelector(brandSelector);
+  const brandLoaded = useSelector(brandLoadedSelector);
+  const registerError = useSelector(authErrorSelector);
+  const registerLoaded = useSelector(authLoadedSelector);
+  const registerLoading = useSelector(authLoadingSelector);
 
   const handleRegister = () => {
     if (
@@ -36,21 +40,22 @@ const Register = () => {
       setNotify('Nhập lại mật khẩu không đúng !');
       return;
     }
-    setNotify('');
-    mutateRegister(info, {
-      onSuccess: () => {
-        setTimeout(() => {
-          navigate(`${APP_URL}/auth/login`);
-        }, 1000);
-      },
-      onError: (error) => {
-        setNotify('Email đã tồn tại !');
-      },
-    });
+    dispatch(register(info));
   };
   const handlePress = (e) => {
     pressEnter(e, handleRegister);
   };
+  useEffect(() => {
+    dispatch(fetchBrand());
+    if (registerLoaded === true) {
+      if (registerError !== null) {
+        setNotify(registerError.errorInfo[2]);
+      } else {
+        setNotify();
+        navigate('/auth/login');
+      }
+    }
+  }, [dispatch, navigate, registerError, registerLoaded]);
   return (
     <div className='register'>
       <div className='register__title'>Đăng ký</div>
@@ -113,8 +118,8 @@ const Register = () => {
             <option value={''} disabled>
               - - - Chọn thương hiệu - - -
             </option>
-            {isSuccessBrand &&
-              dataBrand.data.data.map((item) => (
+            {brandLoaded &&
+              brand.map((item) => (
                 <option key={item.id} value={item.id}>
                   {item.name}
                 </option>
@@ -122,7 +127,7 @@ const Register = () => {
           </select>
         </div>
         {notify !== '' && <p>{notify}</p>}
-        {isLoadingRegister ? (
+        {registerLoading ? (
           <button className='register__loading'>
             <Loading size={30} borderTopColor={'#2aa9f3'} />
           </button>
