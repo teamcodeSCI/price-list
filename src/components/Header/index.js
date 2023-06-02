@@ -5,6 +5,7 @@ import { APP_URL } from '../../utils/const';
 import { brandStyle } from '../../utils/help';
 
 const Header = ({ brand }) => {
+  console.log('brand: ', brand);
   const navigate = useNavigate();
   const logo = brandStyle(brand);
   const handleLogout = () => {

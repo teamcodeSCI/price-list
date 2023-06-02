@@ -9,6 +9,7 @@ import {
   authErrorSelector,
   authLoadedSelector,
   authLoadingSelector,
+  authTokenSelector,
   authUserSelector,
 } from '../../services/authService';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
@@ -25,7 +26,7 @@ const Login = () => {
   const loginError = useSelector(authErrorSelector);
   const loginLoaded = useSelector(authLoadedSelector);
   const loginLoading = useSelector(authLoadingSelector);
-  const loginUser = useSelector(authUserSelector);
+  const accessToken = useSelector(authTokenSelector);
   const handleInfo = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
@@ -47,11 +48,11 @@ const Login = () => {
         setNotify(loginError.toString());
       } else {
         setNotify('');
-        setToken(loginUser.data.token);
+        setToken(accessToken);
         navigate('/');
       }
     }
-  }, [token, loginLoaded, loginError, navigate, setToken, loginUser]);
+  }, [token, loginLoaded, loginError, navigate, setToken, accessToken]);
   return (
     <div className='login'>
       <div className='login__title'>Đăng nhập</div>

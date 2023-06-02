@@ -8,6 +8,7 @@ const authSlice = createSlice({
     user: null,
     loaded: false,
     error: null,
+    token: '',
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -35,18 +36,18 @@ const authSlice = createSlice({
         if (action.payload.status === false) {
           state.loaded = true;
           state.error = action.payload.message;
-          state.user = null;
+          state.token = null;
         } else {
           state.loaded = true;
           state.error = null;
-          state.user = action.payload;
+          state.token = action.payload.data.token;
         }
       })
       .addCase(user.pending, (state, action) => {
         state.loading = true;
       })
       .addCase(user.fulfilled, (state, action) => {
-        state.loading = true;
+        state.loading = false;
         if (action.payload.status === false) {
           state.loaded = true;
           state.error = action.payload.message;
@@ -66,3 +67,4 @@ export const authUserSelector = (state) => state.auth.user;
 export const authLoadingSelector = (state) => state.auth.loading;
 export const authLoadedSelector = (state) => state.auth.loaded;
 export const authErrorSelector = (state) => state.auth.error;
+export const authTokenSelector = (state) => state.auth.token;

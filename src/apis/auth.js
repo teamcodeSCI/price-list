@@ -43,5 +43,6 @@ export const user = createAsyncThunk('auth/user', async (token) => {
       Authorization: token,
     },
   });
+  console.log(await response.json());
   return await response.json();
 });
