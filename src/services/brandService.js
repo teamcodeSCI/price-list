@@ -7,6 +7,7 @@ const brandSlice = createSlice({
     loading: false,
     brandList: [],
     loaded: false,
+    error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -16,12 +17,14 @@ const brandSlice = createSlice({
       })
       .addCase(fetchBrand.fulfilled, (state, action) => {
         state.loading = false;
-        state.brandList = action.payload.data.data;
         state.loaded = true;
-      })
-      .addCase(fetchBrand.rejected, (state, action) => {
-        state.loading = false;
-        state.loaded = false;
+        if (action.payload.status === false) {
+          state.brandList = [];
+          state.error = action.payload.message;
+        } else {
+          state.brandList = action.payload.data;
+          state.error = null;
+        }
       });
   },
 });
