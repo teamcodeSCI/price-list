@@ -18,14 +18,12 @@ const brandSlice = createSlice({
       .addCase(fetchBrand.fulfilled, (state, action) => {
         state.loading = false;
         state.loaded = true;
-        if (action.payload.status === false) {
-          state.brandList = [];
-          state.error = action.payload.message;
-        } else {
-          state.brandList = action.payload.data;
-          state.error = null;
-        }
-      });
+        state.brandList = action.payload.data;
+      }).addCase(fetchBrand.rejected, (state, action) => {
+        state.loading = false;
+        state.loaded = false;
+        state.error = action.payload;
+      });;
   },
 });
 export default brandSlice.reducer;

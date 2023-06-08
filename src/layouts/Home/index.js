@@ -12,22 +12,22 @@ const Home = () => {
   const dispatch = useDispatch();
   const userData = useSelector(authUserSelector);
   const loadedUser = useSelector(authLoadedSelector);
-  console.log('userData: ', loadedUser);
+  
   useEffect(() => {
     dispatch(user(token));
   }, [dispatch, token]);
   return (
     <div className='home'>
       <div className='home__header'>
-        <Header brand={userData !== null ? userData.data.brand.name : ''} />
+        <Header brand={loadedUser ? userData.brand.name : ''} />
       </div>
       <div className='home__main'>
         <div className='container'>
           <LdpList
-            brand={userData !== null && userData.data.brand.name}
+            brand={loadedUser && userData.brand.name}
             token={token}
-            brandId={userData !== null && userData.data.brand_id}
-            isSuccessUser={userData !== null}
+            brandId={loadedUser && userData.brand_id}
+            isSuccessUser={loadedUser}
           />
         </div>
       </div>

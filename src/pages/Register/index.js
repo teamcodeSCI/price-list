@@ -119,7 +119,7 @@ const Register = () => {
               - - - Chọn thương hiệu - - -
             </option>
             {brandLoaded &&
-              brand.map((item) => (
+              brand.data.map((item) => (
                 <option key={item.id} value={item.id}>
                   {item.name}
                 </option>

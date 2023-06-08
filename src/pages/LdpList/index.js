@@ -13,7 +13,6 @@ const LdpList = ({ brand, token, brandId, isSuccessUser }) => {
   const [openAddLdp, setOpenLdp] = useState(false);
   const [pageCount, setPageCount] = useState(0);
   const [pageNum, setPageNum] = useState(1);
-
   const style = brandStyle(brand);
 
   const handleAddLdp = () => {

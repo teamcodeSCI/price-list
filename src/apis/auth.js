@@ -1,5 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { API_URL } from '../utils/const';
+import { API_URL, APP_URL } from '../utils/const';
+import http from './http';
+import { useNavigate } from 'react-router-dom';
 
 export const register = createAsyncThunk('auth/register', async (body) => {
   const response = await fetch(`${API_URL}/register`, {
@@ -36,13 +38,14 @@ export const login = createAsyncThunk('auth/login', async (body) => {
 });
 
 export const user = createAsyncThunk('auth/user', async (token) => {
-  const response = await fetch(`${API_URL}/user`, {
+  const response = await http.get(`/user`, {
     headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
       Authorization: token,
     },
   });
-  console.log(await response.json());
-  return await response.json();
+
+  return response;
+});
+export const logout = createAsyncThunk('auth/logout', async () => {
+  localStorage.clear();
 });

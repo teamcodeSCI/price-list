@@ -10,7 +10,6 @@ import {
   authLoadedSelector,
   authLoadingSelector,
   authTokenSelector,
-  authUserSelector,
 } from '../../services/authService';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import Loading from '../../components/Loading';
@@ -27,6 +26,7 @@ const Login = () => {
   const loginLoaded = useSelector(authLoadedSelector);
   const loginLoading = useSelector(authLoadingSelector);
   const accessToken = useSelector(authTokenSelector);
+
   const handleInfo = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
@@ -42,17 +42,17 @@ const Login = () => {
     pressEnter(e, handleLogin);
   };
   useEffect(() => {
-    if (token) navigate(`${APP_URL}/`);
     if (loginLoaded === true) {
       if (loginError !== null) {
         setNotify(loginError.toString());
       } else {
         setNotify('');
         setToken(accessToken);
-        navigate('/');
+        navigate(`${APP_URL}/`);
       }
     }
-  }, [token, loginLoaded, loginError, navigate, setToken, accessToken]);
+    if (token) navigate(`${APP_URL}/`);
+  }, [token, loginLoaded, loginError, navigate, setToken, accessToken, dispatch]);
   return (
     <div className='login'>
       <div className='login__title'>Đăng nhập</div>
