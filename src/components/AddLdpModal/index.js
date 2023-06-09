@@ -1,15 +1,20 @@
-import React, { useRef, useState } from 'react';
-
+import React, { useEffect, useRef, useState } from 'react';
 import { useOutside } from '../../utils/help';
 import './addLdpModal.scss';
 
-import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCategory } from '../../apis/category';
+import { categoryLoadedSelector, categorySelector } from '../../services/categoryService';
+import { createLanding } from '../../apis/landing';
 
-const AddLdpModal = ({ handleAddLdp, brandId }) => {
+const AddLdpModal = ({ handleAddLdp, brandId, token }) => {
+  const dispatch = useDispatch();
   const wrapperRef = useRef(null);
-  const [token, setToken] = useLocalStorage('token', null);
+
   const [info, setInfo] = useState({ url: '', category_id: 0, brand_id: brandId, status: true });
   const [notify, setNotify] = useState('');
+  const category = useSelector(categorySelector);
+  const categoryLoaded = useSelector(categoryLoadedSelector);
   const handleInfo = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
@@ -20,9 +25,14 @@ const AddLdpModal = ({ handleAddLdp, brandId }) => {
       return;
     }
     setNotify('');
+    dispatch(createLanding({ body: info, token }));
+
+    handleAddLdp();
   };
   useOutside(wrapperRef, handleAddLdp);
-
+  useEffect(() => {
+    dispatch(fetchCategory(brandId));
+  }, [dispatch, brandId]);
   return (
     <div className='addLdpModal'>
       <div className='addLdpModal__box' ref={wrapperRef}>
@@ -33,11 +43,12 @@ const AddLdpModal = ({ handleAddLdp, brandId }) => {
             <option disabled value={0}>
               - - - Chọn nhóm dịch vụ - - -
             </option>
-            {[].map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.category}
-              </option>
-            ))}
+            {categoryLoaded &&
+              category.data.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.category}
+                </option>
+              ))}
           </select>
         </div>
         {notify !== '' && <p>{notify}</p>}

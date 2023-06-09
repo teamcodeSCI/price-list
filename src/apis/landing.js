@@ -2,8 +2,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import http from './http';
 import { removeAccents } from '../utils/help';
 
-export const createLandingFn = (body, token) =>
-  http.post(`/landing/create`, JSON.stringify(body), { headers: { Authorization: token } });
+export const createLanding = createAsyncThunk('landing/createLanding', async ({ body, token }) => {
+  const response = await http.post(`/landing/create`, JSON.stringify(body), { headers: { Authorization: token } });
+  return response;
+});
 
 export const fetchLanding = createAsyncThunk('landing/fetchLanding', async ({ token, brandId, pageNum, filter }) => {
   const response = await http.get(`/landing?brand_id=${brandId}`, {

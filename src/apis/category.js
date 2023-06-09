@@ -1,3 +1,7 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import http from './http';
 
-export const categoryFn = (brandId) => http.get(`/category?brand_id=${brandId}`);
+export const fetchCategory = createAsyncThunk(
+  'category/fetchCategory',
+  async (brandId) => await http.get(`/category?brand_id=${brandId}`)
+);

@@ -11,9 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchLanding } from '../../apis/landing';
 
 import {
-  landingErrorSelector,
   landingLoadedSelector,
-  landingLoadingSelector,
   landingNumberSelector,
   landingPageCountSelector,
   landingSelector,
@@ -29,8 +27,8 @@ const LdpList = ({ brand, token, brandId, isSuccessUser }) => {
   const pageCount = useSelector(landingPageCountSelector);
   const loadedLanding = useSelector(landingLoadedSelector);
   const landingNumber = useSelector(landingNumberSelector);
-  const loadingLanding = useSelector(landingLoadingSelector);
-  const errorLanding = useSelector(landingErrorSelector);
+  // const loadingLanding = useSelector(landingLoadingSelector);
+  // const errorLanding = useSelector(landingErrorSelector);
   const listLanding = useSelector(landingSelector);
 
   const handleAddLdp = () => {
@@ -40,6 +38,7 @@ const LdpList = ({ brand, token, brandId, isSuccessUser }) => {
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
+
   useEffect(() => {
     if (isSuccessUser) dispatch(fetchLanding({ token, brandId, pageNum, filter: search }));
   }, [dispatch, isSuccessUser, token, brandId, pageNum, search]);
@@ -83,7 +82,7 @@ const LdpList = ({ brand, token, brandId, isSuccessUser }) => {
           range={10}
         />
       </div>
-      {openAddLdp && <AddLdpModal brandId={brandId} handleAddLdp={handleAddLdp} />}
+      {openAddLdp && <AddLdpModal brandId={brandId} token={token} handleAddLdp={handleAddLdp} />}
     </div>
   );
 };
