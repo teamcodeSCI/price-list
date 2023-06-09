@@ -1,17 +1,38 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import http from './http';
-import { API_URL } from '../utils/const';
+import { removeAccents } from '../utils/help';
 
 export const createLandingFn = (body, token) =>
   http.post(`/landing/create`, JSON.stringify(body), { headers: { Authorization: token } });
 
-export const fetchLanding = createAsyncThunk('landing/fetchLanding', async (token, brandId) => {
-  const response = await fetch(`${API_URL}/landing?brand_id=${brandId}`, {
+export const fetchLanding = createAsyncThunk('landing/fetchLanding', async ({ token, brandId, pageNum, filter }) => {
+  const response = await http.get(`/landing?brand_id=${brandId}`, {
     headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
       Authorization: token,
     },
   });
-  return await response.json();
+  const paginationLimit = 10;
+  const search = removeAccents(filter);
+
+  const landing =
+    search === ''
+      ? response.data.data
+      : response.data.data.filter((item) => removeAccents(item.url).search(search) !== -1);
+  const pageCount = Math.ceil(landing.length / paginationLimit);
+  const prevRange = (pageNum - 1) * paginationLimit;
+  const currRange = pageNum * paginationLimit;
+  const renderData = [];
+  landing.forEach((item, index) => {
+    if (index >= prevRange && index < currRange) {
+      renderData.push(item);
+    }
+  });
+
+  return {
+    status: response.data.status,
+    message: response.data.message,
+    data: renderData,
+    pageCount: pageCount,
+    landingNumber: landing.length,
+  };
 });

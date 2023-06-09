@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { API_URL, APP_URL } from '../utils/const';
+import { API_URL } from '../utils/const';
 import http from './http';
-import { useNavigate } from 'react-router-dom';
 
 export const register = createAsyncThunk('auth/register', async (body) => {
   const response = await fetch(`${API_URL}/register`, {
