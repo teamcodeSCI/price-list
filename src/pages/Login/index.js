@@ -5,16 +5,28 @@ import lockIcon from '../../assets/icons/lock-icon.svg';
 
 import { useNavigate } from 'react-router-dom';
 import { APP_URL } from '../../utils/const';
-import { useLogin } from '../../services/authService';
+import {
+  authErrorSelector,
+  authLoadedSelector,
+  authLoadingSelector,
+  authTokenSelector,
+} from '../../services/authService';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import Loading from '../../components/Loading';
 import { pressEnter } from '../../utils/help';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../apis/auth';
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [info, setInfo] = useState({ email: '', password: '' });
   const [notify, setNotify] = useState('');
-  const { mutateLogin, isLoadingLogin } = useLogin();
+  const loginError = useSelector(authErrorSelector);
+  const loginLoaded = useSelector(authLoadedSelector);
+  const loginLoading = useSelector(authLoadingSelector);
+  const accessToken = useSelector(authTokenSelector);
+
   const handleInfo = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
@@ -24,24 +36,23 @@ const Login = () => {
       setNotify('Vui lòng nhập đủ thông tin !');
       return;
     }
-    mutateLogin(info, {
-      onSuccess: (data) => {
-        setToken(data.data.data.token);
-        setTimeout(() => {
-          navigate(`${APP_URL}/`);
-        }, 1000);
-      },
-      onError: (error) => {
-        setNotify(error.response.data.message);
-      },
-    });
+    dispatch(login(info));
   };
   const handleKeyDown = (e) => {
     pressEnter(e, handleLogin);
   };
   useEffect(() => {
+    if (loginLoaded === true) {
+      if (loginError !== null) {
+        setNotify(loginError.toString());
+      } else {
+        setNotify('');
+        setToken(accessToken);
+        navigate(`${APP_URL}/`);
+      }
+    }
     if (token) navigate(`${APP_URL}/`);
-  });
+  }, [token, loginLoaded, loginError, navigate, setToken, accessToken, dispatch]);
   return (
     <div className='login'>
       <div className='login__title'>Đăng nhập</div>
@@ -73,7 +84,7 @@ const Login = () => {
           />
         </div>
         {notify !== '' && <p>{notify}</p>}
-        {isLoadingLogin ? (
+        {loginLoading ? (
           <button className='login__loading'>
             <Loading size={30} borderTopColor={'#2aa9f3'} />
           </button>
