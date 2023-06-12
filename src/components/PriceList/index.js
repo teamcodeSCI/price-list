@@ -32,10 +32,20 @@ const PriceList = ({ handlePriceList, token, landingId }) => {
     });
   };
   const handleIsAddPrice = () => {
+    setAddInfo({
+      ...addInfo,
+      landing_id: landingId,
+      service: '',
+      price: 0,
+      discount: 0,
+      promotion: '',
+      note: '',
+    });
     setIsAddPrice(!isAddPrice);
   };
   const handleAddPrice = () => {
     dispatch(createPrice({ token, body: addInfo }));
+    handleIsAddPrice();
   };
   useOutside(modalRef, handlePriceList);
 
@@ -48,7 +58,15 @@ const PriceList = ({ handlePriceList, token, landingId }) => {
         <div className='priceList__close'>
           <img width={20} height={20} src={closeIcon} alt='' onClick={handlePriceList} />
         </div>
-
+        <PriceItem
+          name={'Dịch vụ'}
+          price={'Giá gốc'}
+          percent={'Giảm giá'}
+          discount={'Giá sau giảm'}
+          promotion={'Ưu đãi'}
+          description={'Ghi chú'}
+          isTitle={true}
+        />
         <div className='priceList__body'>
           {priceLoading ? (
             <div className='priceList__loading'>
@@ -60,15 +78,6 @@ const PriceList = ({ handlePriceList, token, landingId }) => {
               <p>Không có dữ liệu</p>
             ) : (
               <>
-                <PriceItem
-                  name={'Dịch vụ'}
-                  price={'Giá gốc'}
-                  percent={'Giảm giá'}
-                  discount={'Giá sau giảm'}
-                  promotion={'Ưu đãi'}
-                  description={'Ghi chú'}
-                  isTitle={true}
-                />
                 {price.map((item) => (
                   <PriceItem
                     key={item.id}
@@ -83,69 +92,69 @@ const PriceList = ({ handlePriceList, token, landingId }) => {
               </>
             ))
           )}
+        </div>
 
-          <div className='priceList__addItem' style={isAddPrice ? { padding: '10px 20px' } : {}}>
-            {isAddPrice ? (
-              <ul>
-                <li className='priceList__name'>
-                  <input
-                    type='text'
-                    name='service'
-                    placeholder='Nhập tên dịch vụ ...'
-                    value={addInfo.service}
-                    onChange={handleEditInfo}
-                  />
-                </li>
-                <li className='priceList__price'>
-                  <input
-                    type='number'
-                    name='price'
-                    placeholder='Nhập giá gốc ...'
-                    value={addInfo.price}
-                    onChange={handleEditInfo}
-                  />
-                </li>
-                <li className='priceList__percent'>
-                  <input
-                    type='number'
-                    name='discount'
-                    placeholder='Nhập % giảm ...'
-                    value={addInfo.discount}
-                    onChange={handleEditInfo}
-                  />
-                </li>
-                <li className='priceList__discount'>
-                  <input type='number' value={count} disabled />
-                </li>
-                <li className='priceList__promotion'>
-                  <input
-                    type='text'
-                    name='promotion'
-                    placeholder='Nhập ưu đãi ...'
-                    value={addInfo.promotion}
-                    onChange={handleEditInfo}
-                  />
-                </li>
-                <li className='priceList__description'>
-                  <input
-                    type='text'
-                    name='note'
-                    placeholder='Nhập ghi chú ...'
-                    value={addInfo.note}
-                    onChange={handleEditInfo}
-                  />
-                </li>
-                <li className='priceList__action'>
-                  <button className='priceList__save' onClick={handleAddPrice}></button>
-                  <button className='priceList__cancel' onClick={handleIsAddPrice}></button>
-                </li>
-              </ul>
-            ) : (
-              <div className='priceList__addBtn'>
-                <button onClick={handleIsAddPrice}>+ Thêm mới</button>
-              </div>
-            )}
-          </div>
+        <div className='priceList__addItem' style={isAddPrice ? { padding: '10px 20px' } : {}}>
+          {isAddPrice ? (
+            <ul>
+              <li className='priceList__name'>
+                <input
+                  type='text'
+                  name='service'
+                  placeholder='Nhập tên dịch vụ ...'
+                  value={addInfo.service}
+                  onChange={handleEditInfo}
+                />
+              </li>
+              <li className='priceList__price'>
+                <input
+                  type='number'
+                  name='price'
+                  placeholder='Nhập giá gốc ...'
+                  value={addInfo.price}
+                  onChange={handleEditInfo}
+                />
+              </li>
+              <li className='priceList__percent'>
+                <input
+                  type='number'
+                  name='discount'
+                  placeholder='Nhập % giảm ...'
+                  value={addInfo.discount}
+                  onChange={handleEditInfo}
+                />
+              </li>
+              <li className='priceList__discount'>
+                <input type='number' value={count} disabled />
+              </li>
+              <li className='priceList__promotion'>
+                <input
+                  type='text'
+                  name='promotion'
+                  placeholder='Nhập ưu đãi ...'
+                  value={addInfo.promotion}
+                  onChange={handleEditInfo}
+                />
+              </li>
+              <li className='priceList__description'>
+                <input
+                  type='text'
+                  name='note'
+                  placeholder='Nhập ghi chú ...'
+                  value={addInfo.note}
+                  onChange={handleEditInfo}
+                />
+              </li>
+              <li className='priceList__action'>
+                <button className='priceList__save' onClick={handleAddPrice}></button>
+                <button className='priceList__cancel' onClick={handleIsAddPrice}></button>
+              </li>
+            </ul>
+          ) : (
+            <div className='priceList__addBtn'>
+              <button onClick={handleIsAddPrice}>+ Thêm mới</button>
+            </div>
+          )}
         </div>
       </div>
     </div>

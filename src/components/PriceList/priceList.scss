@@ -38,10 +38,12 @@
   }
   &__body {
     overflow-y: overlay;
-    height: 55vh;
+    height: 50vh;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin: 15px 0;
+    padding: 0 0 15px;
   }
   &__addItem {
     position: relative;
