@@ -36,11 +36,13 @@ const landingSlice = createSlice({
       .addCase(createLanding.fulfilled, (state, action) => {
         state.loading = false;
         state.loaded = true;
+        state.landingNumber += 1;
         state.landingList.unshift(action.payload.data.data);
       })
       .addCase(createLanding.rejected, (state, action) => {
         state.loading = false;
         state.loaded = false;
+
         state.error = action.error.message;
       });
   },

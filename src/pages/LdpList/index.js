@@ -27,6 +27,7 @@ const LdpList = ({ brand, token, brandId, isSuccessUser }) => {
   const pageCount = useSelector(landingPageCountSelector);
   const loadedLanding = useSelector(landingLoadedSelector);
   const landingNumber = useSelector(landingNumberSelector);
+
   // const loadingLanding = useSelector(landingLoadingSelector);
   // const errorLanding = useSelector(landingErrorSelector);
   const listLanding = useSelector(landingSelector);
