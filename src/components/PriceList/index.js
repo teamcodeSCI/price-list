@@ -4,8 +4,9 @@ import closeIcon from '../../assets/icons/close-icon.svg';
 import { useOutside } from '../../utils/help';
 import PriceItem from '../PriceItem';
 import { useSelector } from 'react-redux';
+import Loading from '../Loading';
 
-import { priceLoadedSelector, priceSelector } from '../../services/priceService';
+import { priceLoadedSelector, priceLoadingSelector, priceSelector } from '../../services/priceService';
 
 const PriceList = ({ handlePriceList }) => {
   const modalRef = useRef(null);
@@ -20,6 +21,7 @@ const PriceList = ({ handlePriceList }) => {
   });
   const price = useSelector(priceSelector);
   const priceLoaded = useSelector(priceLoadedSelector);
+  const priceLoading = useSelector(priceLoadingSelector);
   const count = (addInfo.price * (100 - addInfo.percent)) / 100;
   const handleEditInfo = (e) => {
     setAddInfo({
@@ -43,7 +45,12 @@ const PriceList = ({ handlePriceList }) => {
         </div>
 
         <div className='priceList__body'>
-          {priceLoaded &&
+          {!priceLoading ? (
+            <div className='priceList__loading'>
+              <Loading size={30} />
+            </div>
+          ) : (
+            priceLoaded &&
             (price.length === 0 ? (
               <p>Không có dữ liệu</p>
             ) : (
@@ -69,7 +76,8 @@ const PriceList = ({ handlePriceList }) => {
                   />
                 ))}
               </>
-            ))}
+            ))
+          )}
 
           <div className='priceList__addItem' style={isAddPrice ? { padding: '10px 20px' } : {}}>
             {isAddPrice ? (
