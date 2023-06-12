@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createLanding, fetchLanding, updateLanding } from '../apis/landing';
+import { createLanding, deleteLanding, fetchLanding, updateLanding } from '../apis/landing';
 const initialState = {
   loading: false,
   loaded: false,
@@ -54,6 +54,18 @@ const landingSlice = createSlice({
         );
       })
       .addCase(updateLanding.rejected, (state, action) => {
+        state.loading = false;
+        state.loaded = false;
+        state.error = action.error.message;
+      })
+      .addCase(deleteLanding.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(deleteLanding.fulfilled, (state, action) => {
+        state.loading = false;
+        state.landingList = state.landingList.filter((item) => item.id !== action.payload.data.data.id);
+      })
+      .addCase(deleteLanding.rejected, (state, action) => {
         state.loading = false;
         state.loaded = false;
         state.error = action.error.message;

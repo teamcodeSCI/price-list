@@ -6,7 +6,7 @@ import { strToBool } from '../../utils/help';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategory } from '../../apis/category';
 import { categoryLoadedSelector, categorySelector } from '../../services/categoryService';
-import { updateLanding } from '../../apis/landing';
+import { deleteLanding, updateLanding } from '../../apis/landing';
 
 const LdpItem = (props) => {
   const dispatch = useDispatch();
@@ -37,7 +37,10 @@ const LdpItem = (props) => {
     dispatch(updateLanding({ id: props.id, body: item, token: props.token }));
     handleCloseEditLanding();
   };
-
+  const handleDeleteLanding = () => {
+    dispatch(deleteLanding({ id: props.id, token: props.token }));
+    handleConfirmModal();
+  };
   const handlePriceList = () => {
     setOpenPriceList(!openPriceList);
   };
@@ -96,7 +99,7 @@ const LdpItem = (props) => {
       )}
 
       {openPriceList && <PriceList handlePriceList={handlePriceList} />}
-      {openConfirmModal && <ConfirmModal handleConfirmModal={handleConfirmModal} />}
+      {openConfirmModal && <ConfirmModal handleConfirmModal={handleConfirmModal} action={handleDeleteLanding} />}
     </div>
   );
 };
