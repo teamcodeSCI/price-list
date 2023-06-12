@@ -45,7 +45,7 @@ const PriceList = ({ handlePriceList }) => {
         </div>
 
         <div className='priceList__body'>
-          {!priceLoading ? (
+          {priceLoading ? (
             <div className='priceList__loading'>
               <Loading size={30} />
             </div>
