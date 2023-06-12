@@ -64,6 +64,7 @@ const landingSlice = createSlice({
       .addCase(deleteLanding.fulfilled, (state, action) => {
         state.loading = false;
         state.landingList = state.landingList.filter((item) => item.id !== action.payload.data.data.id);
+        state.landingNumber -= 1;
       })
       .addCase(deleteLanding.rejected, (state, action) => {
         state.loading = false;
