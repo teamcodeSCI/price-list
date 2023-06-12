@@ -2,11 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import { createLanding, fetchLanding } from '../apis/landing';
 const initialState = {
   loading: false,
-  landingList: [],
   loaded: false,
-  error: null,
-  pageCount: 0,
+  landingList: [],
   landingNumber: 0,
+  pageCount: 0,
+  error: null,
 };
 
 const landingSlice = createSlice({
@@ -21,9 +21,9 @@ const landingSlice = createSlice({
       .addCase(fetchLanding.fulfilled, (state, action) => {
         state.loading = false;
         state.loaded = true;
-        state.landingList = action.payload.data;
-        state.pageCount = action.payload.pageCount;
-        state.landingNumber = action.payload.landingNumber;
+        state.landingList = action.payload.data.data;
+        state.landingNumber = action.payload.data.pagination.total;
+        state.pageCount = action.payload.data.pagination.last_page;
       })
       .addCase(fetchLanding.rejected, (state, action) => {
         state.loading = false;
