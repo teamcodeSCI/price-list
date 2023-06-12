@@ -35,7 +35,7 @@ const PriceList = ({ handlePriceList, token, landingId }) => {
     setIsAddPrice(!isAddPrice);
   };
   const handleAddPrice = () => {
-    dispatch(createPrice());
+    dispatch(createPrice({ token, body: addInfo }));
   };
   useOutside(modalRef, handlePriceList);
 

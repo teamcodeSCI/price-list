@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchPrice } from '../apis/price';
+import { createPrice, fetchPrice } from '../apis/price';
 
 const initialState = { loading: false, loaded: false, error: null, priceList: [] };
 const priceSlice = createSlice({
@@ -17,6 +17,18 @@ const priceSlice = createSlice({
         state.priceList = action.payload.data.data;
       })
       .addCase(fetchPrice.rejected, (state, action) => {
+        state.loading = false;
+        state.loaded = false;
+      })
+      .addCase(createPrice.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(createPrice.fulfilled, (state, action) => {
+        state.loading = false;
+        state.loaded = true;
+        state.priceList.unshift(action.payload.data.data);
+      })
+      .addCase(createPrice.rejected, (state, action) => {
         state.loading = false;
         state.loaded = false;
       }),
