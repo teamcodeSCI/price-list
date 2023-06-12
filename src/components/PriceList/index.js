@@ -3,6 +3,9 @@ import './priceList.scss';
 import closeIcon from '../../assets/icons/close-icon.svg';
 import { useOutside } from '../../utils/help';
 import PriceItem from '../PriceItem';
+import { useSelector } from 'react-redux';
+
+import { priceLoadedSelector, priceSelector } from '../../services/priceService';
 
 const PriceList = ({ handlePriceList }) => {
   const modalRef = useRef(null);
@@ -15,6 +18,8 @@ const PriceList = ({ handlePriceList }) => {
     promotion: '',
     description: '',
   });
+  const price = useSelector(priceSelector);
+  const priceLoaded = useSelector(priceLoadedSelector);
   const count = (addInfo.price * (100 - addInfo.percent)) / 100;
   const handleEditInfo = (e) => {
     setAddInfo({
@@ -26,6 +31,7 @@ const PriceList = ({ handlePriceList }) => {
     setIsAddPrice(!isAddPrice);
   };
   useOutside(modalRef, handlePriceList);
+
   return (
     <div className='priceList'>
       <div className='priceList__box' ref={modalRef}>
@@ -35,48 +41,36 @@ const PriceList = ({ handlePriceList }) => {
         <div className='priceList__close'>
           <img width={20} height={20} src={closeIcon} alt='' onClick={handlePriceList} />
         </div>
+
         <div className='priceList__body'>
-          <PriceItem
-            name={'Dịch vụ'}
-            price={'Giá gốc'}
-            percent={'Giảm giá'}
-            discount={'Giá sau giảm'}
-            promotion={'Ưu đãi'}
-            description={'Ghi chú'}
-            isTitle={true}
-          />
-          <PriceItem
-            name={'Dio Hàn Quốc - Tiêu chuẩn'}
-            price={8000000}
-            percent={45}
-            discount={(8000000 * (100 - 45)) / 100}
-            promotion={'Tặng răng sứ Titan'}
-            description={'7 năm'}
-          />
-          <PriceItem
-            name={'Dio Hàn Quốc - Tiêu chuẩn'}
-            price={8000000}
-            percent={45}
-            discount={(8000000 * (100 - 45)) / 100}
-            promotion={'Tặng răng sứ Titan'}
-            description={'7 năm'}
-          />
-          <PriceItem
-            name={'Dio Hàn Quốc - Tiêu chuẩn'}
-            price={8000000}
-            percent={45}
-            discount={(8000000 * (100 - 45)) / 100}
-            promotion={'Tặng răng sứ Titan'}
-            description={'7 năm'}
-          />
-          <PriceItem
-            name={'Dio Hàn Quốc - Tiêu chuẩn'}
-            price={8000000}
-            percent={45}
-            discount={(8000000 * (100 - 45)) / 100}
-            promotion={'Tặng răng sứ Titan'}
-            description={'7 năm'}
-          />
+          {priceLoaded &&
+            (price.length === 0 ? (
+              <p>Không có dữ liệu</p>
+            ) : (
+              <>
+                <PriceItem
+                  name={'Dịch vụ'}
+                  price={'Giá gốc'}
+                  percent={'Giảm giá'}
+                  discount={'Giá sau giảm'}
+                  promotion={'Ưu đãi'}
+                  description={'Ghi chú'}
+                  isTitle={true}
+                />
+                {price.map((item) => (
+                  <PriceItem
+                    key={item.id}
+                    name={item.service}
+                    price={Number(item.price)}
+                    percent={item.discount}
+                    discount={(Number(item.price) * (100 - Number(item.discount))) / 100}
+                    promotion={item.promotion}
+                    description={item.note}
+                  />
+                ))}
+              </>
+            ))}
+
           <div className='priceList__addItem' style={isAddPrice ? { padding: '10px 20px' } : {}}>
             {isAddPrice ? (
               <ul>

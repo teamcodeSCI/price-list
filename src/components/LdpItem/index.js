@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategory } from '../../apis/category';
 import { categoryLoadedSelector, categorySelector } from '../../services/categoryService';
 import { deleteLanding, updateLanding } from '../../apis/landing';
+import { fetchPrice } from '../../apis/price';
 
 const LdpItem = (props) => {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const LdpItem = (props) => {
     handleConfirmModal();
   };
   const handlePriceList = () => {
+    dispatch(fetchPrice({ landingId: props.id, token: props.token }));
     setOpenPriceList(!openPriceList);
   };
   const handleConfirmModal = () => {

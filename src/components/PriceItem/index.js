@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './priceItem.scss';
 import ConfirmModal from '../ConfirmModal';
+import { formatMoney } from '../../utils/help';
 const PriceItem = ({ name, price, percent, discount, promotion, description, isTitle }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
@@ -25,21 +26,20 @@ const PriceItem = ({ name, price, percent, discount, promotion, description, isT
       [e.target.name]: e.target.value,
     });
   };
-
   return (
     <>
       {!isEdit ? (
         <ul className='priceItem' style={isTitle ? { fontWeight: '600' } : {}}>
           <li className='priceItem__name'>{name}</li>
           <li className='priceItem__price'>
-            {price} {isTitle ? '' : 'Đ'}
+            {formatMoney(price)} {isTitle ? '' : 'Đ'}
           </li>
           <li className='priceItem__percent'>
             {percent}
             {isTitle ? '' : '%'}
           </li>
           <li className='priceItem__discount'>
-            {discount} {isTitle ? '' : 'Đ'}
+            {formatMoney(discount)} {isTitle ? '' : 'Đ'}
           </li>
           <li className='priceItem__promotion'>{promotion}</li>
           <li className='priceItem__description'>{description}</li>
