@@ -100,7 +100,7 @@ const LdpItem = (props) => {
         </div>
       )}
 
-      {openPriceList && <PriceList handlePriceList={handlePriceList} />}
+      {openPriceList && <PriceList token={props.token} landingId={props.id} handlePriceList={handlePriceList} />}
       {openConfirmModal && <ConfirmModal handleConfirmModal={handleConfirmModal} action={handleDeleteLanding} />}
     </div>
   );
