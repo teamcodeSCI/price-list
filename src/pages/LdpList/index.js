@@ -64,7 +64,7 @@ const LdpList = ({ brand, token, brandId, isSuccessUser }) => {
           listLanding.length === 0 ? (
             <p> Không có dữ liệu</p>
           ) : (
-            listLanding.map((item) => <LdpItem key={item.id} {...item} />)
+            listLanding.map((item) => <LdpItem key={item.id} {...item} token={token} />)
           )
         ) : (
           <div className='ldpList__loading'>
