@@ -1,7 +1,7 @@
 {
   "name": "price-list",
   "version": "0.1.0",
-  "homepage": "https://app.scigroupvn.com/priceList",
+  "homepage": "https://scigroup.com.vn/app/price-list",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
