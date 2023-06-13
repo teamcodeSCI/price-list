@@ -1,21 +1,31 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './priceList.scss';
 import closeIcon from '../../assets/icons/close-icon.svg';
 import { useOutside } from '../../utils/help';
 import PriceItem from '../PriceItem';
+import { useDispatch, useSelector } from 'react-redux';
+import Loading from '../Loading';
 
-const PriceList = ({ handlePriceList }) => {
+import { priceLoadedSelector, priceLoadingSelector, priceSelector } from '../../services/priceService';
+import { createPrice, fetchPrice } from '../../apis/price';
+
+const PriceList = ({ handlePriceList, token, landingId }) => {
+  const dispatch = useDispatch();
   const modalRef = useRef(null);
   const [isAddPrice, setIsAddPrice] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [addInfo, setAddInfo] = useState({
-    name: '',
-    price: '',
-    percent: '',
-    discount: '',
+    landing_id: landingId,
+    service: '',
+    price: 0,
+    discount: 0,
     promotion: '',
-    description: '',
+    note: '',
   });
-  const count = (addInfo.price * (100 - addInfo.percent)) / 100;
+  const price = useSelector(priceSelector);
+  const priceLoaded = useSelector(priceLoadedSelector);
+  const priceLoading = useSelector(priceLoadingSelector);
+  const count = (addInfo.price * (100 - addInfo.discount)) / 100;
   const handleEditInfo = (e) => {
     setAddInfo({
       ...addInfo,
@@ -23,122 +33,140 @@ const PriceList = ({ handlePriceList }) => {
     });
   };
   const handleIsAddPrice = () => {
+    setAddInfo({
+      ...addInfo,
+      landing_id: landingId,
+      service: '',
+      price: 0,
+      discount: 0,
+      promotion: '',
+      note: '',
+    });
+    setIsError(false);
     setIsAddPrice(!isAddPrice);
   };
+  const handleAddPrice = () => {
+    if (addInfo.service === '' || addInfo.price === 0) {
+      setIsError(true);
+      return;
+    }
+    setIsError(false);
+    dispatch(createPrice({ token, body: addInfo }));
+    handleIsAddPrice();
+  };
   useOutside(modalRef, handlePriceList);
+  useEffect(() => {
+    dispatch(fetchPrice({ landingId, token }));
+  }, [dispatch, landingId, token]);
   return (
     <div className='priceList'>
       <div className='priceList__box' ref={modalRef}>
         <div className='priceList__header'>
-          <span>Chi tiết</span>
+          <span> Chi tiết </span>
         </div>
         <div className='priceList__close'>
           <img width={20} height={20} src={closeIcon} alt='' onClick={handlePriceList} />
         </div>
+        <PriceItem
+          name={'Dịch vụ'}
+          price={'Giá gốc'}
+          percent={'Giảm giá'}
+          discount={'Giá sau giảm'}
+          promotion={'Ưu đãi'}
+          description={'Ghi chú'}
+          isTitle={true}
+        />
         <div className='priceList__body'>
-          <PriceItem
-            name={'Dịch vụ'}
-            price={'Giá gốc'}
-            percent={'Giảm giá'}
-            discount={'Giá sau giảm'}
-            promotion={'Ưu đãi'}
-            description={'Ghi chú'}
-            isTitle={true}
-          />
-          <PriceItem
-            name={'Dio Hàn Quốc - Tiêu chuẩn'}
-            price={8000000}
-            percent={45}
-            discount={(8000000 * (100 - 45)) / 100}
-            promotion={'Tặng răng sứ Titan'}
-            description={'7 năm'}
-          />
-          <PriceItem
-            name={'Dio Hàn Quốc - Tiêu chuẩn'}
-            price={8000000}
-            percent={45}
-            discount={(8000000 * (100 - 45)) / 100}
-            promotion={'Tặng răng sứ Titan'}
-            description={'7 năm'}
-          />
-          <PriceItem
-            name={'Dio Hàn Quốc - Tiêu chuẩn'}
-            price={8000000}
-            percent={45}
-            discount={(8000000 * (100 - 45)) / 100}
-            promotion={'Tặng răng sứ Titan'}
-            description={'7 năm'}
-          />
-          <PriceItem
-            name={'Dio Hàn Quốc - Tiêu chuẩn'}
-            price={8000000}
-            percent={45}
-            discount={(8000000 * (100 - 45)) / 100}
-            promotion={'Tặng răng sứ Titan'}
-            description={'7 năm'}
-          />
-          <div className='priceList__addItem' style={isAddPrice ? { padding: '10px 20px' } : {}}>
-            {isAddPrice ? (
-              <ul>
-                <li className='priceList__name'>
-                  <input
-                    type='text'
-                    name='name'
-                    placeholder='Nhập tên dịch vụ ...'
-                    value={addInfo.name}
-                    onChange={handleEditInfo}
-                  />
-                </li>
-                <li className='priceList__price'>
-                  <input
-                    type='number'
-                    name='price'
-                    placeholder='Nhập giá gốc ...'
-                    value={addInfo.price}
-                    onChange={handleEditInfo}
-                  />
-                </li>
-                <li className='priceList__percent'>
-                  <input
-                    type='number'
-                    name='percent'
-                    placeholder='Nhập % giảm ...'
-                    value={addInfo.percent}
-                    onChange={handleEditInfo}
-                  />
-                </li>
-                <li className='priceList__discount'>
-                  <input type='number' name='discount' value={count} onChange={handleEditInfo} disabled />
-                </li>
-                <li className='priceList__promotion'>
-                  <input
-                    type='text'
-                    name='promotion'
-                    placeholder='Nhập ưu đãi ...'
-                    value={addInfo.promotion}
-                    onChange={handleEditInfo}
-                  />
-                </li>
-                <li className='priceList__description'>
-                  <input
-                    type='text'
-                    name='description'
-                    placeholder='Nhập ghi chú ...'
-                    value={addInfo.description}
-                    onChange={handleEditInfo}
-                  />
-                </li>
-                <li className='priceList__action'>
-                  <button className='priceList__save'></button>
-                  <button className='priceList__cancel' onClick={handleIsAddPrice}></button>
-                </li>
-              </ul>
+          {priceLoading ? (
+            <div className='priceList__loading'>
+              <Loading size={30} />
+            </div>
+          ) : (
+            priceLoaded &&
+            (price.length === 0 ? (
+              <p> Không có dữ liệu </p>
             ) : (
-              <div className='priceList__addBtn'>
-                <button onClick={handleIsAddPrice}>+ Thêm mới</button>
-              </div>
-            )}
-          </div>
+              <>
+                {price.map((item) => (
+                  <PriceItem
+                    key={item.id}
+                    landingId={landingId}
+                    priceId={item.id}
+                    name={item.service}
+                    price={Number(item.price)}
+                    percent={item.discount}
+                    discount={(Number(item.price) * (100 - Number(item.discount))) / 100}
+                    promotion={item.promotion}
+                    description={item.note}
+                  />
+                ))}
+              </>
+            ))
+          )}
+        </div>
+        <div className='priceList__addItem' style={isAddPrice ? { padding: '10px 20px' } : {}}>
+          {isAddPrice ? (
+            <ul>
+              <li className='priceList__name'>
+                <input
+                  type='text'
+                  name='service'
+                  placeholder='Nhập tên dịch vụ ...'
+                  style={isError ? { borderColor: 'red' } : { borderColor: '#ccc' }}
+                  value={addInfo.service}
+                  onChange={handleEditInfo}
+                />
+              </li>
+              <li className='priceList__price'>
+                <input
+                  type='number'
+                  name='price'
+                  placeholder='Nhập giá gốc ...'
+                  style={isError ? { borderColor: 'red' } : { borderColor: '#ccc' }}
+                  value={addInfo.price}
+                  onChange={handleEditInfo}
+                />
+              </li>
+              <li className='priceList__percent'>
+                <input
+                  type='number'
+                  name='discount'
+                  placeholder='Nhập % giảm ...'
+                  value={addInfo.discount}
+                  onChange={handleEditInfo}
+                />
+              </li>
+              <li className='priceList__discount'>
+                <input type='number' value={count} disabled />
+              </li>
+              <li className='priceList__promotion'>
+                <input
+                  type='text'
+                  name='promotion'
+                  placeholder='Nhập ưu đãi ...'
+                  value={addInfo.promotion}
+                  onChange={handleEditInfo}
+                />
+              </li>
+              <li className='priceList__description'>
+                <input
+                  type='text'
+                  name='note'
+                  placeholder='Nhập ghi chú ...'
+                  value={addInfo.note}
+                  onChange={handleEditInfo}
+                />
+              </li>
+              <li className='priceList__action'>
+                <button className='priceList__save' onClick={handleAddPrice}></button>
+                <button className='priceList__cancel' onClick={handleIsAddPrice}></button>
+              </li>
+            </ul>
+          ) : (
+            <div className='priceList__addBtn'>
+              <button onClick={handleIsAddPrice}> +Thêm mới </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

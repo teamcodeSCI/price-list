@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createLanding, fetchLanding } from '../apis/landing';
+import { createLanding, deleteLanding, fetchLanding, updateLanding } from '../apis/landing';
 const initialState = {
   loading: false,
   loaded: false,
@@ -36,9 +36,37 @@ const landingSlice = createSlice({
       .addCase(createLanding.fulfilled, (state, action) => {
         state.loading = false;
         state.loaded = true;
+        state.landingNumber += 1;
         state.landingList.unshift(action.payload.data.data);
       })
       .addCase(createLanding.rejected, (state, action) => {
+        state.loading = false;
+        state.loaded = false;
+        state.error = action.error.message;
+      })
+      .addCase(updateLanding.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(updateLanding.fulfilled, (state, action) => {
+        state.loading = false;
+        state.landingList = state.landingList.map((item) =>
+          item.id === action.payload.data.data.id ? action.payload.data.data : item
+        );
+      })
+      .addCase(updateLanding.rejected, (state, action) => {
+        state.loading = false;
+        state.loaded = false;
+        state.error = action.error.message;
+      })
+      .addCase(deleteLanding.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(deleteLanding.fulfilled, (state, action) => {
+        state.loading = false;
+        state.landingList = state.landingList.filter((item) => item.id !== action.payload.data.data.id);
+        state.landingNumber -= 1;
+      })
+      .addCase(deleteLanding.rejected, (state, action) => {
         state.loading = false;
         state.loaded = false;
         state.error = action.error.message;

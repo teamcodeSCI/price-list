@@ -14,3 +14,11 @@ export const fetchLanding = createAsyncThunk('landing/fetchLanding', async ({ to
   });
   return response;
 });
+export const updateLanding = createAsyncThunk('landing/updateLanding', async ({ id, body, token }) => {
+  const response = await http.put(`/landing/${id}`, JSON.stringify(body), { headers: { Authorization: token } });
+  return response;
+});
+export const deleteLanding = createAsyncThunk('landing/deleteLanding', async ({ id, token }) => {
+  const response = await http.delete(`/landing/${id}`, { headers: { Authorization: token } });
+  return response;
+});

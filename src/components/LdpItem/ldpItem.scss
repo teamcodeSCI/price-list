@@ -1,71 +1,104 @@
 .ldpItem {
-    background: #fff;
-    border-radius: 9px;
-    box-shadow: 0 1px 5px 0 rgb(0 0 0/15%);
-    color: #686868;
+  background: #fff;
+  border-radius: 9px;
+  box-shadow: 0 1px 5px 0 rgb(0 0 0/15%);
+  color: #686868;
+  display: flex;
+  margin-bottom: 13px;
+  padding: 10px 20px;
+  position: relative;
+  transition: all 0.2s linear;
+  gap: 20px;
+  font-size: 14px;
+  &__title {
+    width: 50%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    input {
+      width: 100%;
+      padding: 3px 5px;
+      border: none;
+      border-bottom: 1px solid #ccc;
+    }
+  }
+  &__cate {
+    width: 18%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    select {
+      width: 80%;
+      padding: 3px 5px;
+      border: none;
+      border-bottom: 1px solid #ccc;
+      outline: none;
+    }
+  }
+  &__status {
+    select {
+      outline: none;
+      border: none;
+      background: #ccc;
+      border-radius: 4px;
+      padding: 2px 10px;
+      color: #686868;
+      cursor: pointer;
+      &:disabled {
+        appearance: none;
+        opacity: 1;
+        cursor: default;
+      }
+      option {
+        background: #fff;
+      }
+    }
+  }
+  &__action {
     display: flex;
-    margin-bottom: 13px;
-    padding: 10px 20px;
-    position: relative;
-    transition: all 0.2s linear;
-    gap: 20px;
-    font-size: 14px;
-    &__title {
-        width: 45%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    &__cate {
-        width: 20%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    &__status {
-        select {
-            cursor: pointer;
-            outline: none;
-            border: none;
-            background: #ccc;
-            border-radius: 4px;
-            padding: 2px 5px;
-            color: #686868;
-            option {
-                background: #fff;
-            }
-        }
-    }
-    &__action {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        position: absolute;
-        right: 15px;
-        top: 50%;
+    gap: 15px;
+    justify-content: center;
+    position: absolute;
+    right: 15px;
+    top: 50%;
 
-        transform: translateY(-50%);
-        button {
-            border: none;
-            cursor: pointer;
-            display: block;
-            height: 22px;
-            transition: all 0.2s linear;
-            width: 22px;
-        }
+    transform: translateY(-50%);
+    button {
+      border: none;
+      cursor: pointer;
+      display: block;
+      height: 22px;
+      transition: all 0.2s linear;
+      width: 22px;
     }
-    &__delete {
-        background: url(../../assets/icons/delete-icon.svg) center 0 no-repeat;
-        background-size: 100%;
-        &:hover {
-            background: url(../../assets/icons/deleteActive-icon.svg) center 0 no-repeat;
-        }
+  }
+  &__edit {
+    background: url(../../assets/icons/edit-icon.svg) center 0 no-repeat;
+    background-size: 100%;
+    &:hover {
+      background: url(../../assets/icons/editActive-icon.svg) center 0 no-repeat;
     }
-    &__detail {
-        background: url(../../assets/icons/dots-icon.svg) center 0 no-repeat;
-        background-size: 100%;
-        &:hover {
-            background: url(../../assets/icons/dotsActive-icon.svg) center 0 no-repeat;
-        }
+  }
+  &__delete {
+    background: url(../../assets/icons/delete-icon.svg) center 0 no-repeat;
+    background-size: 100%;
+    &:hover {
+      background: url(../../assets/icons/deleteActive-icon.svg) center 0 no-repeat;
     }
+  }
+  &__detail {
+    background: url(../../assets/icons/dots-icon.svg) center 0 no-repeat;
+    background-size: 100%;
+    &:hover {
+      background: url(../../assets/icons/dotsActive-icon.svg) center 0 no-repeat;
+    }
+  }
+  &__save {
+    background: url(../../assets/icons/check-icon.svg) center 0 no-repeat;
+    background-size: 100%;
+  }
+  &__cancel {
+    background: url(../../assets/icons/closeActive-icon.svg) center 0 no-repeat;
+    background-size: 100%;
+  }
 }

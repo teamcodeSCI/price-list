@@ -5,11 +5,6 @@ import logoPR from '../assets/images/logoPR.svg';
 import logoDA from '../assets/images/logoDA.png';
 import logoHH from '../assets/images/logoHH.svg';
 
-export const splitLoginStr = (str) => {
-  const arr = str.split('/');
-  return { username: arr[0], role: arr[1] };
-};
-
 export const useOutside = (ref, func) => {
   useEffect(() => {
     /**
@@ -92,3 +87,5 @@ export const strToBool = (value) => {
   }
   return value;
 };
+export const formatMoney = (money) =>
+  typeof money === 'number' ? new Intl.NumberFormat('vi-VN').format(money) : money;
