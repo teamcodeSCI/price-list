@@ -22,3 +22,10 @@ export const updatePrice = createAsyncThunk('price/updatePrice', async ({ token,
     },
   });
 });
+export const deletePrice = createAsyncThunk('price/deletePrice', async ({ token, priceId }) => {
+  return await http.delete(`/price/${priceId}`, {
+    headers: {
+      Authorization: token,
+    },
+  });
+});

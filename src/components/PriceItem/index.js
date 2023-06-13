@@ -3,7 +3,7 @@ import './priceItem.scss';
 import ConfirmModal from '../ConfirmModal';
 import { formatMoney } from '../../utils/help';
 import { useDispatch } from 'react-redux';
-import { updatePrice } from '../../apis/price';
+import { deletePrice, updatePrice } from '../../apis/price';
 const PriceItem = ({ priceId, name, price, percent, discount, promotion, description, isTitle, landingId }) => {
   const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState(false);
@@ -38,6 +38,9 @@ const PriceItem = ({ priceId, name, price, percent, discount, promotion, descrip
     }
     setIsError(false);
     dispatch(updatePrice({ token: localStorage.getItem('token').replace(/"/g, ''), body: editInfo, priceId }));
+  };
+  const handleDelete = () => {
+    dispatch(deletePrice({ token: localStorage.getItem('token').replace(/"/g, ''), priceId }));
   };
   return (
     <>
@@ -121,7 +124,7 @@ const PriceItem = ({ priceId, name, price, percent, discount, promotion, descrip
           </li>
         </ul>
       )}
-      {isDelete && <ConfirmModal handleConfirmModal={handleIsDelete} />}
+      {isDelete && <ConfirmModal handleConfirmModal={handleIsDelete} action={handleDelete} />}
     </>
   );
 };
