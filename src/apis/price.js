@@ -15,3 +15,10 @@ export const createPrice = createAsyncThunk('price/createPrice', async ({ token,
     },
   });
 });
+export const updatePrice = createAsyncThunk('price/updatePrice', async ({ token, body, priceId }) => {
+  return await http.put(`/price/${priceId}`, JSON.stringify(body), {
+    headers: {
+      Authorization: token,
+    },
+  });
+});

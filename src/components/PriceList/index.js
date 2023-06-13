@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './priceList.scss';
 import closeIcon from '../../assets/icons/close-icon.svg';
 import { useOutside } from '../../utils/help';
@@ -7,12 +7,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../Loading';
 
 import { priceLoadedSelector, priceLoadingSelector, priceSelector } from '../../services/priceService';
-import { createPrice } from '../../apis/price';
+import { createPrice, fetchPrice } from '../../apis/price';
 
 const PriceList = ({ handlePriceList, token, landingId }) => {
   const dispatch = useDispatch();
   const modalRef = useRef(null);
   const [isAddPrice, setIsAddPrice] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [addInfo, setAddInfo] = useState({
     landing_id: landingId,
     service: '',
@@ -41,19 +42,27 @@ const PriceList = ({ handlePriceList, token, landingId }) => {
       promotion: '',
       note: '',
     });
+    setIsError(false);
     setIsAddPrice(!isAddPrice);
   };
   const handleAddPrice = () => {
+    if (addInfo.service === '' || addInfo.price === 0) {
+      setIsError(true);
+      return;
+    }
+    setIsError(false);
     dispatch(createPrice({ token, body: addInfo }));
     handleIsAddPrice();
   };
   useOutside(modalRef, handlePriceList);
-
+  useEffect(() => {
+    dispatch(fetchPrice({ landingId, token }));
+  }, [dispatch, landingId, token]);
   return (
     <div className='priceList'>
       <div className='priceList__box' ref={modalRef}>
         <div className='priceList__header'>
-          <span>Chi tiết</span>
+          <span> Chi tiết </span>
         </div>
         <div className='priceList__close'>
           <img width={20} height={20} src={closeIcon} alt='' onClick={handlePriceList} />
@@ -75,12 +84,14 @@ const PriceList = ({ handlePriceList, token, landingId }) => {
           ) : (
             priceLoaded &&
             (price.length === 0 ? (
-              <p>Không có dữ liệu</p>
+              <p> Không có dữ liệu </p>
             ) : (
               <>
                 {price.map((item) => (
                   <PriceItem
                     key={item.id}
+                    landingId={landingId}
+                    priceId={item.id}
                     name={item.service}
                     price={Number(item.price)}
                     percent={item.discount}
@@ -93,7 +104,6 @@ const PriceList = ({ handlePriceList, token, landingId }) => {
             ))
           )}
         </div>
-
         <div className='priceList__addItem' style={isAddPrice ? { padding: '10px 20px' } : {}}>
           {isAddPrice ? (
             <ul>
@@ -102,6 +112,7 @@ const PriceList = ({ handlePriceList, token, landingId }) => {
                   type='text'
                   name='service'
                   placeholder='Nhập tên dịch vụ ...'
+                  style={isError ? { borderColor: 'red' } : { borderColor: '#ccc' }}
                   value={addInfo.service}
                   onChange={handleEditInfo}
                 />
@@ -111,6 +122,7 @@ const PriceList = ({ handlePriceList, token, landingId }) => {
                   type='number'
                   name='price'
                   placeholder='Nhập giá gốc ...'
+                  style={isError ? { borderColor: 'red' } : { borderColor: '#ccc' }}
                   value={addInfo.price}
                   onChange={handleEditInfo}
                 />
@@ -152,7 +164,7 @@ const PriceList = ({ handlePriceList, token, landingId }) => {
             </ul>
           ) : (
             <div className='priceList__addBtn'>
-              <button onClick={handleIsAddPrice}>+ Thêm mới</button>
+              <button onClick={handleIsAddPrice}> +Thêm mới </button>
             </div>
           )}
         </div>

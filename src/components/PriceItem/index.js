@@ -2,20 +2,25 @@ import React, { useState } from 'react';
 import './priceItem.scss';
 import ConfirmModal from '../ConfirmModal';
 import { formatMoney } from '../../utils/help';
-const PriceItem = ({ name, price, percent, discount, promotion, description, isTitle }) => {
+import { useDispatch } from 'react-redux';
+import { updatePrice } from '../../apis/price';
+const PriceItem = ({ priceId, name, price, percent, discount, promotion, description, isTitle, landingId }) => {
+  const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [editInfo, setEditInfo] = useState({
-    name: name,
+    landing_id: landingId,
+    service: name,
     price: price,
-    percent: percent,
-    discount: discount,
+    discount: percent,
     promotion: promotion,
-    description: description,
+    note: description,
   });
-  const count = (editInfo.price * (100 - editInfo.percent)) / 100;
+  const [isError, setIsError] = useState(false);
+  const count = (editInfo.price * (100 - editInfo.discount)) / 100;
   const handleIsEdit = () => {
     setIsEdit(!isEdit);
+    setIsError(false);
   };
   const handleIsDelete = () => {
     setIsDelete(!isDelete);
@@ -25,6 +30,14 @@ const PriceItem = ({ name, price, percent, discount, promotion, description, isT
       ...editInfo,
       [e.target.name]: e.target.value,
     });
+  };
+  const handleEditPrice = () => {
+    if (editInfo.service === '' || editInfo.price === 0) {
+      setIsError(true);
+      return;
+    }
+    setIsError(false);
+    dispatch(updatePrice({ token: localStorage.getItem('token').replace(/"/g, ''), body: editInfo, priceId }));
   };
   return (
     <>
@@ -55,9 +68,10 @@ const PriceItem = ({ name, price, percent, discount, promotion, description, isT
           <li className='priceItem__name'>
             <input
               type='text'
-              name='name'
+              name='service'
+              style={isError ? { borderColor: 'red' } : { borderColor: '#ccc' }}
               placeholder='Nhập tên dịch vụ ...'
-              value={editInfo.name}
+              value={editInfo.service}
               onChange={handleEditInfo}
             />
           </li>
@@ -65,43 +79,44 @@ const PriceItem = ({ name, price, percent, discount, promotion, description, isT
             <input
               type='number'
               name='price'
+              style={isError ? { borderColor: 'red' } : { borderColor: '#ccc' }}
               placeholder='Nhập giá gốc ...'
-              value={editInfo.price}
+              value={editInfo.price || 0}
               onChange={handleEditInfo}
             />
           </li>
           <li className='priceItem__percent'>
             <input
               type='number'
-              name='percent'
+              name='discount'
               placeholder='Nhập % giảm ...'
-              value={editInfo.percent}
+              value={editInfo.percent || 0}
               onChange={handleEditInfo}
             />
           </li>
           <li className='priceItem__discount'>
-            <input type='number' name='discount' value={count} onChange={handleEditInfo} disabled />
+            <input type='number' value={count} onChange={handleEditInfo} disabled />
           </li>
           <li className='priceItem__promotion'>
             <input
               type='text'
               name='promotion'
               placeholder='Nhập ưu đãi ...'
-              value={editInfo.promotion}
+              value={editInfo.promotion || ''}
               onChange={handleEditInfo}
             />
           </li>
           <li className='priceItem__description'>
             <input
               type='text'
-              name='description'
+              name='note'
               placeholder='Nhập ghi chú ...'
-              value={editInfo.description}
+              value={editInfo.note || ''}
               onChange={handleEditInfo}
             />
           </li>
           <li className='priceItem__action'>
-            <button className='priceItem__save'></button>
+            <button className='priceItem__save' onClick={handleEditPrice}></button>
             <button className='priceItem__cancel' onClick={handleIsEdit}></button>
           </li>
         </ul>
