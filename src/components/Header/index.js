@@ -1,14 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './header.scss';
 import { useNavigate } from 'react-router-dom';
 import { APP_URL } from '../../utils/const';
 import { brandStyle } from '../../utils/help';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logout } from '../../apis/auth';
-import { authUserSelector } from '../../services/authService';
 
 const Header = ({ brand }) => {
-  const getUser = useSelector(authUserSelector);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const logo = brandStyle(brand);

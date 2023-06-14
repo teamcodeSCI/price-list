@@ -51,7 +51,7 @@ const Register = () => {
       if (registerError !== null) {
         setNotify(registerError.errorInfo[2]);
       } else {
-        setNotify();
+        setNotify('');
         navigate('/auth/login');
       }
     }

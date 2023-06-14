@@ -53,7 +53,7 @@ const LdpItem = (props) => {
         {isEditLanding ? (
           <input name='url' type='text' placeholder='Nhập đường dẫn' onChange={handleEditLanding} value={item.url} />
         ) : (
-          props.url
+          `[${props.id}] ${props.url}`
         )}
       </div>
       <div className='ldpItem__cate'>
