@@ -3,12 +3,13 @@ import { API_URL } from '../utils/const';
 import http from './http';
 
 export const register = createAsyncThunk('auth/register', async (body) => {
-  console.log('body: ', body);
-  const res = await http.post(`/register`, {
-    body: JSON.stringify(body),
-  });
-  console.log(res);
-  return res;
+  try {
+    const res = await http.post(`/register`, JSON.stringify(body));
+    console.log('res: ', res);
+    return res;
+  } catch (e) {
+    return e;
+  }
 });
 
 export const login = createAsyncThunk('auth/login', async (body) => {
