@@ -108,6 +108,15 @@ const LdpItem = (props) => {
             onClick={handleConfirmModal}
           ></button>
           <Tooltip id='delete-tooltip' />
+
+          <button
+            className='ldpItem__setting'
+            data-tooltip-id='setting-tooltip'
+            data-tooltip-content='Gia hạn'
+            onClick={handlePriceList}
+          ></button>
+          <Tooltip id='setting-tooltip' />
+
           <button
             className='ldpItem__detail'
             data-tooltip-id='detail-tooltip'

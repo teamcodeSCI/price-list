@@ -56,7 +56,7 @@
   }
   &__action {
     display: flex;
-    gap: 15px;
+    gap: 10px;
     justify-content: center;
     position: absolute;
     right: 15px;
@@ -91,6 +91,13 @@
     background-size: 100%;
     &:hover {
       background: url(../../assets/icons/dotsActive-icon.svg) center 0 no-repeat;
+    }
+  }
+  &__setting {
+    background: url(../../assets/icons/settings-icon.svg) center 0 no-repeat;
+    background-size: 100%;
+    &:hover {
+      background: url(../../assets/icons/settingsActive-icon.svg) center 0 no-repeat;
     }
   }
   &__save {
