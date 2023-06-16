@@ -16,6 +16,7 @@ import {
   landingPageCountSelector,
   landingSelector,
 } from '../../services/landingService';
+import { Tooltip } from 'react-tooltip';
 
 const LdpList = ({ brand, token, brandId, isSuccessUser }) => {
   const dispatch = useDispatch();
@@ -54,9 +55,15 @@ const LdpList = ({ brand, token, brandId, isSuccessUser }) => {
           <Search handleSearch={handleSearch} search={search} placeholder='Tìm kiếm ...' />
         </div>
         <div className='ldpList__addNew'>
-          <button onClick={handleAddLdp} style={style.style}>
+          <button
+            data-tooltip-id='addNew-tooltip'
+            data-tooltip-content='Thêm mới'
+            onClick={handleAddLdp}
+            style={style.style}
+          >
             <img width={15} height={15} src={plusIcon} alt='' />
           </button>
+          <Tooltip id='addNew-tooltip' />
         </div>
       </div>
       <div className='ldpList__main'>

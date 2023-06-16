@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategory } from '../../apis/category';
 import { categoryLoadedSelector, categorySelector } from '../../services/categoryService';
 import { deleteLanding, updateLanding } from '../../apis/landing';
+import { Tooltip } from 'react-tooltip';
 
 const LdpItem = (props) => {
   const dispatch = useDispatch();
@@ -92,9 +93,28 @@ const LdpItem = (props) => {
         </div>
       ) : (
         <div className='ldpItem__action'>
-          <button className='ldpItem__edit' onClick={handleOpenEditLanding}></button>
-          <button className='ldpItem__delete' onClick={handleConfirmModal}></button>
-          <button className='ldpItem__detail' onClick={handlePriceList}></button>
+          <button
+            className='ldpItem__edit'
+            data-tooltip-id='edit-tooltip'
+            data-tooltip-content='Chỉnh sửa'
+            onClick={handleOpenEditLanding}
+          ></button>
+          <Tooltip id='edit-tooltip' />
+
+          <button
+            className='ldpItem__delete'
+            data-tooltip-id='delete-tooltip'
+            data-tooltip-content='Xóa'
+            onClick={handleConfirmModal}
+          ></button>
+          <Tooltip id='delete-tooltip' />
+          <button
+            className='ldpItem__detail'
+            data-tooltip-id='detail-tooltip'
+            data-tooltip-content='Chi tiết'
+            onClick={handlePriceList}
+          ></button>
+          <Tooltip id='detail-tooltip' />
         </div>
       )}
 
