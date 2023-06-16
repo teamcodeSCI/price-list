@@ -5,7 +5,6 @@ import http from './http';
 export const register = createAsyncThunk('auth/register', async (body) => {
   try {
     const res = await http.post(`/register`, JSON.stringify(body));
-    console.log('res: ', res);
     return res;
   } catch (e) {
     return e;

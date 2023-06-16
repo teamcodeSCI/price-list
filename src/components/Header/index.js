@@ -1,18 +1,16 @@
 import React from 'react';
 import './header.scss';
-import { useNavigate } from 'react-router-dom';
-import { APP_URL } from '../../utils/const';
+
 import { brandStyle } from '../../utils/help';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../apis/auth';
 
 const Header = ({ brand }) => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const logo = brandStyle(brand);
   const handleLogout = () => {
     dispatch(logout());
-    navigate(`${APP_URL}/auth/login`);
+    window.location.reload(false);
   };
 
   return (
