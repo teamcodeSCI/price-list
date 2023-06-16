@@ -8,6 +8,7 @@ import { fetchCategory } from '../../apis/category';
 import { categoryLoadedSelector, categorySelector } from '../../services/categoryService';
 import { deleteLanding, updateLanding } from '../../apis/landing';
 import { Tooltip } from 'react-tooltip';
+import ExtensionList from '../ExtensionList';
 
 const LdpItem = (props) => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const LdpItem = (props) => {
   });
   const [openPriceList, setOpenPriceList] = useState(false);
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
+  const [openExtension, setOpenExtension] = useState(false);
   const [isEditLanding, setIsEditLanding] = useState(false);
   const loadedCate = useSelector(categoryLoadedSelector);
   const cate = useSelector(categorySelector);
@@ -44,6 +46,9 @@ const LdpItem = (props) => {
   };
   const handlePriceList = () => {
     setOpenPriceList(!openPriceList);
+  };
+  const handleOpenExtension = () => {
+    setOpenExtension(!openExtension);
   };
   const handleConfirmModal = () => {
     setOpenConfirmModal(!openConfirmModal);
@@ -113,7 +118,7 @@ const LdpItem = (props) => {
             className='ldpItem__setting'
             data-tooltip-id='setting-tooltip'
             data-tooltip-content='Gia hạn'
-            onClick={handlePriceList}
+            onClick={handleOpenExtension}
           ></button>
           <Tooltip id='setting-tooltip' />
 
@@ -126,7 +131,7 @@ const LdpItem = (props) => {
           <Tooltip id='detail-tooltip' />
         </div>
       )}
-
+      {openExtension && <ExtensionList handleOpenExtension={handleOpenExtension} />}
       {openPriceList && <PriceList token={props.token} landingId={props.id} handlePriceList={handlePriceList} />}
       {openConfirmModal && <ConfirmModal handleConfirmModal={handleConfirmModal} action={handleDeleteLanding} />}
     </div>

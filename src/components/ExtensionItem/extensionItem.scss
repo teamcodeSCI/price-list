@@ -1,0 +1,10 @@
+.extensionItem {
+  display: flex;
+  background: #efefef;
+  padding: 5px 10px;
+  margin-bottom: 5px;
+
+  &__text {
+    width: 50%;
+  }
+}

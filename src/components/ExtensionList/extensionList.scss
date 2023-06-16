@@ -1,0 +1,53 @@
+.extensionList {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
+  &__box {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    background: #fff;
+    margin: 15vh auto 0;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 15px 20px 30px;
+  }
+  &__header {
+    margin-bottom: 15px;
+    span {
+      font-size: 22px;
+      display: block;
+    }
+  }
+  &__close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  }
+  &__body {
+    height: 50vh;
+    overflow-y: auto;
+  }
+  &__head {
+    display: flex;
+    background: #ebebeb;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+  }
+  &__title {
+    width: 50%;
+    font-weight: 600;
+  }
+}
