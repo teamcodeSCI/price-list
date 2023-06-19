@@ -28,15 +28,15 @@ export const login = createAsyncThunk('auth/login', async (body) => {
   return await response.json();
 });
 
-export const user = createAsyncThunk('auth/user', async (token) => {
-  const response = await http.get(`/user`, {
-    headers: {
-      Authorization: token,
-    },
-  });
-
-  return response;
-});
+export const user = createAsyncThunk(
+  'auth/user',
+  async (token) =>
+    await http.get(`/user`, {
+      headers: {
+        Authorization: token,
+      },
+    })
+);
 export const logout = createAsyncThunk('auth/logout', async () => {
   localStorage.clear();
 });
