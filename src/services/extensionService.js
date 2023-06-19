@@ -1,14 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchExtension } from '../apis/extension';
+import { createExtension, fetchExtension } from '../apis/extension';
 
+const initialState = {
+  loading: false,
+  loaded: false,
+  extensionList: [],
+  error: null,
+};
 const extensionSlice = createSlice({
   name: 'extension',
-  initialState: {
-    loading: false,
-    loaded: false,
-    extensionList: [],
-    error: null,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -18,9 +19,22 @@ const extensionSlice = createSlice({
       .addCase(fetchExtension.fulfilled, (state, action) => {
         state.loading = false;
         state.loaded = true;
-        state.extensionList = action.payload.data;
+        state.extensionList = action.payload.data.data;
       })
       .addCase(fetchExtension.rejected, (state, action) => {
+        state.loading = false;
+        state.loaded = false;
+        state.error = action.error.message;
+      })
+      .addCase(createExtension.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(createExtension.fulfilled, (state, action) => {
+        state.loading = false;
+        state.loaded = true;
+        state.extensionList.unshift(action.payload.data.data);
+      })
+      .addCase(createExtension.rejected, (state, action) => {
         state.loading = false;
         state.loaded = false;
         state.error = action.error.message;

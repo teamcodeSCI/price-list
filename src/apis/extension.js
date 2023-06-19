@@ -9,3 +9,7 @@ export const fetchExtension = createAsyncThunk('extension/fetchExtension', async
   });
   return res;
 });
+export const createExtension = createAsyncThunk('extension/createExtension', async ({ body, token }) => {
+  const response = await http.post(`/extension/create`, JSON.stringify(body), { headers: { Authorization: token } });
+  return response;
+});

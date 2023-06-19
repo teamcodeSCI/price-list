@@ -5,15 +5,16 @@ import { useOutside } from '../../utils/help';
 import ExtensionItem from '../ExtensionItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { extensionLoadedSelector, extensionLoadingSelector, extensionSelector } from '../../services/extensionService';
-import { fetchExtension } from '../../apis/extension';
+import { createExtension, fetchExtension } from '../../apis/extension';
 import Loading from '../Loading';
 
 const ExtensionList = ({ handleOpenExtension, landingId, token }) => {
   const dispatch = useDispatch();
+  const wrapperRef = useRef(null);
   const extensionList = useSelector(extensionSelector);
   const extensionLoaded = useSelector(extensionLoadedSelector);
   const extensionLoading = useSelector(extensionLoadingSelector);
-  const wrapperRef = useRef(null);
+
   const [isAddNew, setIsAddNew] = useState(false);
   const [startDate, setStartDate] = useState({
     startMM: '',
@@ -36,6 +37,18 @@ const ExtensionList = ({ handleOpenExtension, landingId, token }) => {
   const handleSetEndDate = (e) => {
     setEndDate({ ...endDate, [e.target.name]: e.target.value });
   };
+  const addExtension = () => {
+    dispatch(
+      createExtension({
+        token,
+        body: {
+          landing_id: landingId,
+          start_date: `${startDate.startMM}/${startDate.startDD}/${startDate.startYYYY}`,
+          end_date: `${endDate.endMM}/${endDate.endDD}/${endDate.endYYYY}`,
+        },
+      })
+    );
+  };
   useOutside(wrapperRef, handleOpenExtension);
   useEffect(() => {
     dispatch(fetchExtension({ token, landingId }));
@@ -57,10 +70,10 @@ const ExtensionList = ({ handleOpenExtension, landingId, token }) => {
 
         <div className='extensionList__body'>
           {extensionLoaded && !extensionLoading ? (
-            extensionList.data.length === 0 ? (
+            extensionList.length === 0 ? (
               <p>Không có dữ liệu</p>
             ) : (
-              extensionList.data.map((item, idx) => <ExtensionItem key={idx} {...item} />)
+              extensionList.map((item, idx) => <ExtensionItem key={idx} {...item} />)
             )
           ) : (
             <div className='extensionList__loading'>
@@ -75,17 +88,17 @@ const ExtensionList = ({ handleOpenExtension, landingId, token }) => {
               <div className='extensionList__input'>
                 <input
                   type='number'
-                  name='startMM'
-                  placeholder='mm'
-                  value={startDate.startMM}
+                  name='startDD'
+                  placeholder='dd'
+                  value={startDate.startDD}
                   onChange={handleSetStartDate}
                 />
                 /
                 <input
                   type='number'
-                  name='startDD'
-                  placeholder='dd'
-                  value={startDate.startDD}
+                  name='startMM'
+                  placeholder='mm'
+                  value={startDate.startMM}
                   onChange={handleSetStartDate}
                 />
                 /
@@ -101,9 +114,9 @@ const ExtensionList = ({ handleOpenExtension, landingId, token }) => {
             <div className='extensionList__text'>
               <span>Ngày kết thúc:</span>
               <div className='extensionList__input'>
-                <input type='number' name='endMM' placeholder='mm' value={endDate.endMM} onChange={handleSetEndDate} />
-                /
                 <input type='number' name='endDD' placeholder='dd' value={endDate.endDD} onChange={handleSetEndDate} />
+                /
+                <input type='number' name='endMM' placeholder='mm' value={endDate.endMM} onChange={handleSetEndDate} />
                 /
                 <input
                   type='number'
@@ -115,7 +128,7 @@ const ExtensionList = ({ handleOpenExtension, landingId, token }) => {
               </div>
             </div>
             <div className='extensionList__action'>
-              <button className='extensionList__save'></button>
+              <button className='extensionList__save' onClick={addExtension}></button>
               <button className='extensionList__cancel' onClick={handleIsAddNew}></button>
             </div>
           </div>
