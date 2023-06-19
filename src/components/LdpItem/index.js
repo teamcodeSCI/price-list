@@ -135,7 +135,9 @@ const LdpItem = (props) => {
           <Tooltip id='detail-tooltip' />
         </div>
       )}
-      {openExtension && <ExtensionList handleOpenExtension={handleOpenExtension} />}
+      {openExtension && (
+        <ExtensionList handleOpenExtension={handleOpenExtension} landingId={props.id} token={props.token} />
+      )}
       {openPriceList && <PriceList token={props.token} landingId={props.id} handlePriceList={handlePriceList} />}
       {openConfirmModal && <ConfirmModal handleConfirmModal={handleConfirmModal} action={handleDeleteLanding} />}
     </div>

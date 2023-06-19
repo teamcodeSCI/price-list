@@ -3,8 +3,8 @@ import ConfirmModal from '../ConfirmModal';
 import './extensionItem.scss';
 
 const ExtensionItem = (props) => {
-  const start = props.startDate.split('/');
-  const end = props.endDate.split('/');
+  const start = props.start_date.split('/');
+  const end = props.end_date.split('/');
   const [isEditExtension, setIsEditExtension] = useState(false);
   const [isDelExtension, setIsDelExtension] = useState(false);
   const [startDate, setStartDate] = useState({
@@ -59,7 +59,7 @@ const ExtensionItem = (props) => {
             />
           </div>
         ) : (
-          props.startDate
+          props.start_date
         )}
       </div>
       <div className='extensionItem__text'>
@@ -76,7 +76,7 @@ const ExtensionItem = (props) => {
             />
           </div>
         ) : (
-          props.endDate
+          props.end_date
         )}
       </div>
       <div className='extensionItem__action'>

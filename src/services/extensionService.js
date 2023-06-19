@@ -18,7 +18,7 @@ const extensionSlice = createSlice({
       .addCase(fetchExtension.fulfilled, (state, action) => {
         state.loading = false;
         state.loaded = true;
-        state.extensionList = action.payload;
+        state.extensionList = action.payload.data;
       })
       .addCase(fetchExtension.rejected, (state, action) => {
         state.loading = false;

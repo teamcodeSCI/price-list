@@ -1,17 +1,19 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './extensionList.scss';
 import closeIcon from '../../assets/icons/close-icon.svg';
 import { useOutside } from '../../utils/help';
 import ExtensionItem from '../ExtensionItem';
-const data = [
-  { startDate: '06/16/2023', endDate: '06/20/2023' },
-  { startDate: '06/21/2023', endDate: '06/24/2023' },
-  { startDate: '06/25/2023', endDate: '06/27/2023' },
-  { startDate: '06/28/2023', endDate: '06/30/2023' },
-];
-const ExtensionList = ({ handleOpenExtension }) => {
-  const wrapperRef = useRef(null);
+import { useDispatch, useSelector } from 'react-redux';
+import { extensionLoadedSelector, extensionLoadingSelector, extensionSelector } from '../../services/extensionService';
+import { fetchExtension } from '../../apis/extension';
+import Loading from '../Loading';
 
+const ExtensionList = ({ handleOpenExtension, landingId, token }) => {
+  const dispatch = useDispatch();
+  const extensionList = useSelector(extensionSelector);
+  const extensionLoaded = useSelector(extensionLoadedSelector);
+  const extensionLoading = useSelector(extensionLoadingSelector);
+  const wrapperRef = useRef(null);
   const [isAddNew, setIsAddNew] = useState(false);
   const [startDate, setStartDate] = useState({
     startMM: '',
@@ -35,6 +37,9 @@ const ExtensionList = ({ handleOpenExtension }) => {
     setEndDate({ ...endDate, [e.target.name]: e.target.value });
   };
   useOutside(wrapperRef, handleOpenExtension);
+  useEffect(() => {
+    dispatch(fetchExtension({ token, landingId }));
+  }, [dispatch, token, landingId]);
   return (
     <div className='extensionList'>
       <div className='extensionList__box' ref={wrapperRef}>
@@ -51,9 +56,17 @@ const ExtensionList = ({ handleOpenExtension }) => {
         </div>
 
         <div className='extensionList__body'>
-          {data.map((item, idx) => (
-            <ExtensionItem key={idx} {...item} />
-          ))}
+          {extensionLoaded && !extensionLoading ? (
+            extensionList.data.length === 0 ? (
+              <p>Không có dữ liệu</p>
+            ) : (
+              extensionList.data.map((item, idx) => <ExtensionItem key={idx} {...item} />)
+            )
+          ) : (
+            <div className='extensionList__loading'>
+              <Loading borderColor={'#ccc'} borderTopColor={'#2aa9f3'} size={30} />
+            </div>
+          )}
         </div>
         {isAddNew ? (
           <div className='extensionList__item'>
