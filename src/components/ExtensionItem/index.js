@@ -8,6 +8,7 @@ const ExtensionItem = (props) => {
   const dispatch = useDispatch();
   const start = props.start_date.split('/');
   const end = props.end_date.split('/');
+  const [isError, setIsError] = useState(false);
   const [isEditExtension, setIsEditExtension] = useState(false);
   const [isDelExtension, setIsDelExtension] = useState(false);
   const [startDate, setStartDate] = useState({
@@ -33,6 +34,17 @@ const ExtensionItem = (props) => {
     setEndDate({ ...endDate, [e.target.name]: e.target.value });
   };
   const saveExtension = () => {
+    if (
+      startDate.startMM === '' ||
+      startDate.startDD === '' ||
+      startDate.startYYYY === '' ||
+      endDate.endMM === '' ||
+      endDate.endDD === '' ||
+      endDate.endYYYY === ''
+    ) {
+      setIsError(true);
+      return;
+    }
     dispatch(
       updateExtension({
         token: props.token,
@@ -44,6 +56,8 @@ const ExtensionItem = (props) => {
         },
       })
     );
+    setIsEditExtension(false);
+    setIsError(false);
   };
   const delExtension = () => {
     dispatch(
@@ -64,6 +78,7 @@ const ExtensionItem = (props) => {
               placeholder='mm'
               value={startDate.startMM}
               onChange={handleSetStartDate}
+              className={isError ? 'extensionItem__error' : ''}
             />
             /
             <input
@@ -72,6 +87,7 @@ const ExtensionItem = (props) => {
               placeholder='dd'
               value={startDate.startDD}
               onChange={handleSetStartDate}
+              className={isError ? 'extensionItem__error' : ''}
             />
             /
             <input
@@ -80,6 +96,7 @@ const ExtensionItem = (props) => {
               placeholder='yyyy'
               value={startDate.startYYYY}
               onChange={handleSetStartDate}
+              className={isError ? 'extensionItem__error' : ''}
             />
           </div>
         ) : (
@@ -89,14 +106,31 @@ const ExtensionItem = (props) => {
       <div className='extensionItem__text'>
         {isEditExtension ? (
           <div className='extensionItem__input'>
-            <input type='number' name='endMM' placeholder='mm' value={endDate.endMM} onChange={handleSetEndDate} /> /
-            <input type='number' name='endDD' placeholder='dd' value={endDate.endDD} onChange={handleSetEndDate} /> /
+            <input
+              type='number'
+              name='endMM'
+              placeholder='mm'
+              value={endDate.endMM}
+              onChange={handleSetEndDate}
+              className={isError ? 'extensionItem__error' : ''}
+            />
+            /
+            <input
+              type='number'
+              name='endDD'
+              placeholder='dd'
+              value={endDate.endDD}
+              onChange={handleSetEndDate}
+              className={isError ? 'extensionItem__error' : ''}
+            />
+            /
             <input
               type='number'
               name='endYYYY'
               placeholder='yyyy'
               value={endDate.endYYYY}
               onChange={handleSetEndDate}
+              className={isError ? 'extensionItem__error' : ''}
             />
           </div>
         ) : (

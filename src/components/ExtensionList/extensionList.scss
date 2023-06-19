@@ -128,4 +128,7 @@
     background: url(../../assets/icons/closeActive-icon.svg) center 0 no-repeat;
     background-size: 100%;
   }
+  &__error {
+    border-color: red !important;
+  }
 }

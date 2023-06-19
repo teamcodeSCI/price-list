@@ -14,7 +14,7 @@ const ExtensionList = ({ handleOpenExtension, landingId, token }) => {
   const extensionList = useSelector(extensionSelector);
   const extensionLoaded = useSelector(extensionLoadedSelector);
   const extensionLoading = useSelector(extensionLoadingSelector);
-
+  const [isError, setIsError] = useState(false);
   const [isAddNew, setIsAddNew] = useState(false);
   const [startDate, setStartDate] = useState({
     startMM: '',
@@ -38,6 +38,17 @@ const ExtensionList = ({ handleOpenExtension, landingId, token }) => {
     setEndDate({ ...endDate, [e.target.name]: e.target.value });
   };
   const addExtension = () => {
+    if (
+      startDate.startMM === '' ||
+      startDate.startDD === '' ||
+      startDate.startYYYY === '' ||
+      endDate.endMM === '' ||
+      endDate.endDD === '' ||
+      endDate.endYYYY === ''
+    ) {
+      setIsError(true);
+      return;
+    }
     dispatch(
       createExtension({
         token,
@@ -48,6 +59,8 @@ const ExtensionList = ({ handleOpenExtension, landingId, token }) => {
         },
       })
     );
+    setIsAddNew(false);
+    setIsError(false);
   };
   useOutside(wrapperRef, handleOpenExtension);
   useEffect(() => {
@@ -92,6 +105,7 @@ const ExtensionList = ({ handleOpenExtension, landingId, token }) => {
                   placeholder='dd'
                   value={startDate.startDD}
                   onChange={handleSetStartDate}
+                  className={isError ? 'extensionList__error' : ''}
                 />
                 /
                 <input
@@ -100,6 +114,7 @@ const ExtensionList = ({ handleOpenExtension, landingId, token }) => {
                   placeholder='mm'
                   value={startDate.startMM}
                   onChange={handleSetStartDate}
+                  className={isError ? 'extensionList__error' : ''}
                 />
                 /
                 <input
@@ -108,15 +123,30 @@ const ExtensionList = ({ handleOpenExtension, landingId, token }) => {
                   placeholder='yyyy'
                   value={startDate.startYYYY}
                   onChange={handleSetStartDate}
+                  className={isError ? 'extensionList__error' : ''}
                 />
               </div>
             </div>
             <div className='extensionList__text'>
               <span>Ngày kết thúc:</span>
               <div className='extensionList__input'>
-                <input type='number' name='endDD' placeholder='dd' value={endDate.endDD} onChange={handleSetEndDate} />
+                <input
+                  type='number'
+                  name='endDD'
+                  placeholder='dd'
+                  value={endDate.endDD}
+                  onChange={handleSetEndDate}
+                  className={isError ? 'extensionList__error' : ''}
+                />
                 /
-                <input type='number' name='endMM' placeholder='mm' value={endDate.endMM} onChange={handleSetEndDate} />
+                <input
+                  type='number'
+                  name='endMM'
+                  placeholder='mm'
+                  value={endDate.endMM}
+                  onChange={handleSetEndDate}
+                  className={isError ? 'extensionList__error' : ''}
+                />
                 /
                 <input
                   type='number'
@@ -124,6 +154,7 @@ const ExtensionList = ({ handleOpenExtension, landingId, token }) => {
                   placeholder='yyyy'
                   value={endDate.endYYYY}
                   onChange={handleSetEndDate}
+                  className={isError ? 'extensionList__error' : ''}
                 />
               </div>
             </div>
