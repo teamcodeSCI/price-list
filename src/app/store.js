@@ -4,6 +4,7 @@ import authReducer from '../services/authService';
 import landingReducer from '../services/landingService';
 import categoryReducer from '../services/categoryService';
 import priceReducer from '../services/priceService';
+import extensionReducer from '../services/extensionService';
 
 const rootReducer = combineReducers({
   brand: brandReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   landing: landingReducer,
   category: categoryReducer,
   price: priceReducer,
+  extension: extensionReducer,
 });
 const store = configureStore({
   reducer: rootReducer,

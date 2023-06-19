@@ -18,16 +18,15 @@ const authSlice = createSlice({
       })
       .addCase(register.fulfilled, (state, action) => {
         state.loading = false;
-        if (action.payload.status === false) {
+        if (action.payload.response) {
           state.loaded = true;
-          state.error = action.payload.message;
-          state.user = null;
+          state.error = action.payload.response.data;
         } else {
-          state.error = null;
-          state.user = action.payload;
           state.loaded = true;
+          state.error = null;
         }
       })
+
       .addCase(login.pending, (state, action) => {
         state.loading = true;
       })

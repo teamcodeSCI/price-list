@@ -22,6 +22,7 @@ const Register = () => {
   const brand = useSelector(brandSelector);
   const brandLoaded = useSelector(brandLoadedSelector);
   const registerError = useSelector(authErrorSelector);
+
   const registerLoaded = useSelector(authLoadedSelector);
   const registerLoading = useSelector(authLoadingSelector);
 
@@ -49,10 +50,9 @@ const Register = () => {
     dispatch(fetchBrand());
     if (registerLoaded === true) {
       if (registerError !== null) {
-        setNotify(registerError.errorInfo[2]);
+        setNotify(registerError.message.errorInfo[2]);
       } else {
-        setNotify();
-        navigate('/auth/login');
+        setNotify('Đăng ký thành công');
       }
     }
   }, [dispatch, navigate, registerError, registerLoaded]);

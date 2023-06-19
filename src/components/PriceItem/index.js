@@ -4,6 +4,7 @@ import ConfirmModal from '../ConfirmModal';
 import { formatMoney } from '../../utils/help';
 import { useDispatch } from 'react-redux';
 import { deletePrice, updatePrice } from '../../apis/price';
+
 const PriceItem = ({ priceId, name, price, percent, discount, promotion, description, isTitle, landingId }) => {
   const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState(false);

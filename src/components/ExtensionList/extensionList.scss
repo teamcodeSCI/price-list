@@ -1,0 +1,134 @@
+.extensionList {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
+  &__loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__box {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    background: #fff;
+    margin: 15vh auto 0;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 15px 20px 25px;
+  }
+  &__header {
+    margin-bottom: 15px;
+    span {
+      font-size: 22px;
+      display: block;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  }
+  &__body {
+    height: 40vh;
+    overflow-y: auto;
+    margin-bottom: 15px;
+  }
+  &__head {
+    display: flex;
+    padding: 5px 10px;
+    margin-bottom: 15px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    color: #686868;
+  }
+  &__addNew {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 36px;
+    padding: 5px 10px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    color: #686868;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  &__title {
+    width: 48%;
+    font-weight: 600;
+  }
+  &__item {
+    position: relative;
+    display: flex;
+    background: #fff;
+    padding: 7px 10px;
+    border-radius: 6px;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    color: #686868;
+  }
+  &__text {
+    width: 48%;
+    span {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 5px;
+    }
+  }
+  &__input {
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+    width: fit-content;
+    input {
+      width: 35px;
+      border: none;
+      border-bottom: 1px solid #ccc;
+      background: transparent;
+      font-size: 14px;
+      padding: 0;
+    }
+  }
+  &__action {
+    position: absolute;
+    bottom: 7px;
+
+    right: 10px;
+    display: flex;
+    gap: 10px;
+    button {
+      border: none;
+      cursor: pointer;
+      display: block;
+      height: 19px;
+      width: 19px;
+      transition: all 0.2s linear;
+    }
+  }
+  &__save {
+    background: url(../../assets/icons/check-icon.svg) center 0 no-repeat;
+    background-size: 100%;
+  }
+  &__cancel {
+    background: url(../../assets/icons/closeActive-icon.svg) center 0 no-repeat;
+    background-size: 100%;
+  }
+  &__error {
+    border-color: red !important;
+  }
+}

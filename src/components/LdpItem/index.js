@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategory } from '../../apis/category';
 import { categoryLoadedSelector, categorySelector } from '../../services/categoryService';
 import { deleteLanding, updateLanding } from '../../apis/landing';
+import { Tooltip } from 'react-tooltip';
+import ExtensionList from '../ExtensionList';
 
 const LdpItem = (props) => {
   const dispatch = useDispatch();
@@ -19,6 +21,7 @@ const LdpItem = (props) => {
   });
   const [openPriceList, setOpenPriceList] = useState(false);
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
+  const [openExtension, setOpenExtension] = useState(false);
   const [isEditLanding, setIsEditLanding] = useState(false);
   const loadedCate = useSelector(categoryLoadedSelector);
   const cate = useSelector(categorySelector);
@@ -44,6 +47,9 @@ const LdpItem = (props) => {
   const handlePriceList = () => {
     setOpenPriceList(!openPriceList);
   };
+  const handleOpenExtension = () => {
+    setOpenExtension(!openExtension);
+  };
   const handleConfirmModal = () => {
     setOpenConfirmModal(!openConfirmModal);
   };
@@ -53,7 +59,7 @@ const LdpItem = (props) => {
         {isEditLanding ? (
           <input name='url' type='text' placeholder='Nhập đường dẫn' onChange={handleEditLanding} value={item.url} />
         ) : (
-          props.url
+          `[${props.id}] ${props.url}`
         )}
       </div>
       <div className='ldpItem__cate'>
@@ -92,12 +98,46 @@ const LdpItem = (props) => {
         </div>
       ) : (
         <div className='ldpItem__action'>
-          <button className='ldpItem__edit' onClick={handleOpenEditLanding}></button>
-          <button className='ldpItem__delete' onClick={handleConfirmModal}></button>
-          <button className='ldpItem__detail' onClick={handlePriceList}></button>
+          <button
+            className='ldpItem__edit'
+            data-tooltip-id='edit-tooltip'
+            data-tooltip-content='Chỉnh sửa'
+            data-tooltip-delay-show={1000}
+            onClick={handleOpenEditLanding}
+          ></button>
+          <Tooltip id='edit-tooltip' />
+
+          <button
+            className='ldpItem__delete'
+            data-tooltip-id='delete-tooltip'
+            data-tooltip-content='Xóa'
+            data-tooltip-delay-show={1000}
+            onClick={handleConfirmModal}
+          ></button>
+          <Tooltip id='delete-tooltip' />
+
+          <button
+            className='ldpItem__setting'
+            data-tooltip-id='setting-tooltip'
+            data-tooltip-content='Gia hạn'
+            data-tooltip-delay-show={1000}
+            onClick={handleOpenExtension}
+          ></button>
+          <Tooltip id='setting-tooltip' />
+
+          <button
+            className='ldpItem__detail'
+            data-tooltip-id='detail-tooltip'
+            data-tooltip-content='Chi tiết'
+            data-tooltip-delay-show={1000}
+            onClick={handlePriceList}
+          ></button>
+          <Tooltip id='detail-tooltip' />
         </div>
       )}
-
+      {openExtension && (
+        <ExtensionList handleOpenExtension={handleOpenExtension} landingId={props.id} token={props.token} />
+      )}
       {openPriceList && <PriceList token={props.token} landingId={props.id} handlePriceList={handlePriceList} />}
       {openConfirmModal && <ConfirmModal handleConfirmModal={handleConfirmModal} action={handleDeleteLanding} />}
     </div>
