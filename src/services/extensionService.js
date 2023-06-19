@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createExtension, fetchExtension } from '../apis/extension';
+import { createExtension, fetchExtension, updateExtension } from '../apis/extension';
 
 const initialState = {
   loading: false,
@@ -35,6 +35,20 @@ const extensionSlice = createSlice({
         state.extensionList.unshift(action.payload.data.data);
       })
       .addCase(createExtension.rejected, (state, action) => {
+        state.loading = false;
+        state.loaded = false;
+        state.error = action.error.message;
+      })
+      .addCase(updateExtension.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(updateExtension.fulfilled, (state, action) => {
+        state.loading = false;
+        state.extensionList = state.extensionList.map((item) =>
+          item.id === action.payload.data.data.id ? action.payload.data.data : item
+        );
+      })
+      .addCase(updateExtension.rejected, (state, action) => {
         state.loading = false;
         state.loaded = false;
         state.error = action.error.message;

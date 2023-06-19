@@ -13,3 +13,9 @@ export const createExtension = createAsyncThunk('extension/createExtension', asy
   const response = await http.post(`/extension/create`, JSON.stringify(body), { headers: { Authorization: token } });
   return response;
 });
+export const updateExtension = createAsyncThunk('extension/updateExtension', async ({ body, token, extensionId }) => {
+  const response = await http.put(`/extension/${extensionId}`, JSON.stringify(body), {
+    headers: { Authorization: token },
+  });
+  return response;
+});

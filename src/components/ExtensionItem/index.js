@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import ConfirmModal from '../ConfirmModal';
 import './extensionItem.scss';
+import { useDispatch } from 'react-redux';
+import { updateExtension } from '../../apis/extension';
 
 const ExtensionItem = (props) => {
+  const dispatch = useDispatch();
   const start = props.start_date.split('/');
   const end = props.end_date.split('/');
   const [isEditExtension, setIsEditExtension] = useState(false);
@@ -28,6 +31,19 @@ const ExtensionItem = (props) => {
   };
   const handleSetEndDate = (e) => {
     setEndDate({ ...endDate, [e.target.name]: e.target.value });
+  };
+  const saveExtension = () => {
+    dispatch(
+      updateExtension({
+        token: props.token,
+        extensionId: props.id,
+        body: {
+          landing_id: props.landing_id,
+          start_date: `${startDate.startMM}/${startDate.startDD}/${startDate.startYYYY}`,
+          end_date: `${endDate.endMM}/${endDate.endDD}/${endDate.endYYYY}`,
+        },
+      })
+    );
   };
   return (
     <div className='extensionItem'>
@@ -82,7 +98,7 @@ const ExtensionItem = (props) => {
       <div className='extensionItem__action'>
         {isEditExtension ? (
           <>
-            <button className='extensionItem__save'></button>
+            <button className='extensionItem__save' onClick={saveExtension}></button>
             <button className='extensionItem__close' onClick={handleEditExtension}></button>
           </>
         ) : (

@@ -73,7 +73,7 @@ const ExtensionList = ({ handleOpenExtension, landingId, token }) => {
             extensionList.length === 0 ? (
               <p>Không có dữ liệu</p>
             ) : (
-              extensionList.map((item, idx) => <ExtensionItem key={idx} {...item} />)
+              extensionList.map((item, idx) => <ExtensionItem key={idx} token={token} {...item} />)
             )
           ) : (
             <div className='extensionList__loading'>
