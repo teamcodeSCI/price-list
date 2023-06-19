@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ConfirmModal from '../ConfirmModal';
 import './extensionItem.scss';
 import { useDispatch } from 'react-redux';
-import { updateExtension } from '../../apis/extension';
+import { deleteExtension, updateExtension } from '../../apis/extension';
 
 const ExtensionItem = (props) => {
   const dispatch = useDispatch();
@@ -42,6 +42,14 @@ const ExtensionItem = (props) => {
           start_date: `${startDate.startMM}/${startDate.startDD}/${startDate.startYYYY}`,
           end_date: `${endDate.endMM}/${endDate.endDD}/${endDate.endYYYY}`,
         },
+      })
+    );
+  };
+  const delExtension = () => {
+    dispatch(
+      deleteExtension({
+        token: props.token,
+        extensionId: props.id,
       })
     );
   };
@@ -108,7 +116,7 @@ const ExtensionItem = (props) => {
           </>
         )}
       </div>
-      {isDelExtension && <ConfirmModal handleConfirmModal={handleDelExtension} />}
+      {isDelExtension && <ConfirmModal action={delExtension} handleConfirmModal={handleDelExtension} />}
     </div>
   );
 };

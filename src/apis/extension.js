@@ -19,3 +19,9 @@ export const updateExtension = createAsyncThunk('extension/updateExtension', asy
   });
   return response;
 });
+export const deleteExtension = createAsyncThunk('extension/deleteExtension', async ({ token, extensionId }) => {
+  const response = await http.delete(`/extension/${extensionId}`, {
+    headers: { Authorization: token },
+  });
+  return response;
+});
