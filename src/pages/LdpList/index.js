@@ -58,6 +58,7 @@ const LdpList = ({ brand, token, brandId, isSuccessUser }) => {
           <button
             data-tooltip-id='addNew-tooltip'
             data-tooltip-content='Thêm mới'
+            data-tooltip-delay-show={1000}
             onClick={handleAddLdp}
             style={style.style}
           >

@@ -5,6 +5,7 @@ const ExtensionItem = (props) => {
   const start = props.startDate.split('/');
   const end = props.endDate.split('/');
   const [isEditExtension, setIsEditExtension] = useState(false);
+  const [isDelExtension, setIsDelExtension] = useState(false);
   const [startDate, setStartDate] = useState({
     startMM: start[0],
     startDD: start[1],
@@ -17,6 +18,9 @@ const ExtensionItem = (props) => {
   });
   const handleEditExtension = () => {
     setIsEditExtension(!isEditExtension);
+  };
+  const handleDelExtension = () => {
+    setIsDelExtension(!isDelExtension);
   };
   const handleSetStartDate = (e) => {
     setStartDate({ ...startDate, [e.target.name]: e.target.value });
@@ -83,7 +87,7 @@ const ExtensionItem = (props) => {
         ) : (
           <>
             <button className='extensionItem__edit' onClick={handleEditExtension}></button>
-            <button className='extensionItem__delete'></button>
+            <button className='extensionItem__delete' onClick={handleDelExtension}></button>
           </>
         )}
       </div>

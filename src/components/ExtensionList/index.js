@@ -56,10 +56,10 @@ const ExtensionList = ({ handleOpenExtension }) => {
           ))}
         </div>
         {isAddNew ? (
-          <div class='extensionList__item'>
-            <div class='extensionList__text'>
+          <div className='extensionList__item'>
+            <div className='extensionList__text'>
               <span>Ngày bắt đầu:</span>
-              <div class='extensionList__input'>
+              <div className='extensionList__input'>
                 <input
                   type='number'
                   name='startMM'
@@ -85,9 +85,9 @@ const ExtensionList = ({ handleOpenExtension }) => {
                 />
               </div>
             </div>
-            <div class='extensionList__text'>
+            <div className='extensionList__text'>
               <span>Ngày kết thúc:</span>
-              <div class='extensionList__input'>
+              <div className='extensionList__input'>
                 <input type='number' name='endMM' placeholder='mm' value={endDate.endMM} onChange={handleSetEndDate} />
                 /
                 <input type='number' name='endDD' placeholder='dd' value={endDate.endDD} onChange={handleSetEndDate} />
@@ -101,9 +101,9 @@ const ExtensionList = ({ handleOpenExtension }) => {
                 />
               </div>
             </div>
-            <div class='extensionList__action'>
-              <button class='extensionList__save'></button>
-              <button class='extensionList__cancel' onClick={handleIsAddNew}></button>
+            <div className='extensionList__action'>
+              <button className='extensionList__save'></button>
+              <button className='extensionList__cancel' onClick={handleIsAddNew}></button>
             </div>
           </div>
         ) : (

@@ -102,6 +102,7 @@ const LdpItem = (props) => {
             className='ldpItem__edit'
             data-tooltip-id='edit-tooltip'
             data-tooltip-content='Chỉnh sửa'
+            data-tooltip-delay-show={1000}
             onClick={handleOpenEditLanding}
           ></button>
           <Tooltip id='edit-tooltip' />
@@ -110,6 +111,7 @@ const LdpItem = (props) => {
             className='ldpItem__delete'
             data-tooltip-id='delete-tooltip'
             data-tooltip-content='Xóa'
+            data-tooltip-delay-show={1000}
             onClick={handleConfirmModal}
           ></button>
           <Tooltip id='delete-tooltip' />
@@ -118,6 +120,7 @@ const LdpItem = (props) => {
             className='ldpItem__setting'
             data-tooltip-id='setting-tooltip'
             data-tooltip-content='Gia hạn'
+            data-tooltip-delay-show={1000}
             onClick={handleOpenExtension}
           ></button>
           <Tooltip id='setting-tooltip' />
@@ -126,6 +129,7 @@ const LdpItem = (props) => {
             className='ldpItem__detail'
             data-tooltip-id='detail-tooltip'
             data-tooltip-content='Chi tiết'
+            data-tooltip-delay-show={1000}
             onClick={handlePriceList}
           ></button>
           <Tooltip id='detail-tooltip' />
