@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ConfirmModal from '../ConfirmModal';
 import './extensionItem.scss';
 
 const ExtensionItem = (props) => {
@@ -91,6 +92,7 @@ const ExtensionItem = (props) => {
           </>
         )}
       </div>
+      {isDelExtension && <ConfirmModal handleConfirmModal={handleDelExtension} />}
     </div>
   );
 };
