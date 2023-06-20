@@ -18,6 +18,7 @@ import {
   landingSelector,
 } from '../../services/landingService';
 import { Tooltip } from 'react-tooltip';
+import CategoryList from '../../components/CategoryList';
 
 const LdpList = ({ brand, token, brandId, isSuccessUser }) => {
   const dispatch = useDispatch();
@@ -109,7 +110,7 @@ const LdpList = ({ brand, token, brandId, isSuccessUser }) => {
         )}
       </div>
       {openAddLdp && <AddLdpModal brandId={brandId} token={token} handleAddLdp={handleAddLdp} />}
-      {/* {openCate && <AddLdpModal brandId={brandId} token={token} handleAddLdp={handleAddLdp} />} */}
+      {openCate && <CategoryList handleOpenCategory={handleOpenCate} />}
     </div>
   );
 };
