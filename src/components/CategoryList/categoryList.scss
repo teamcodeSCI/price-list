@@ -23,10 +23,8 @@
   }
   &__header {
     margin-bottom: 15px;
-    span {
-      font-size: 22px;
-      display: block;
-    }
+    font-size: 22px;
+    display: block;
   }
 
   &__close {
@@ -48,15 +46,7 @@
     margin-bottom: 15px;
     text-align: center;
   }
-  &__head {
-    display: flex;
-    padding: 5px 10px;
-    margin-bottom: 15px;
-    background: #fff;
-    border-radius: 6px;
-    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
-    color: #686868;
-  }
+
   &__addNew {
     display: flex;
     justify-content: center;

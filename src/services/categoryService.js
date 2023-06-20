@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createCategory, fetchCategory } from '../apis/category';
+import { createCategory, deleteCategory, fetchCategory, updateCategory } from '../apis/category';
 
 const categorySlice = createSlice({
   name: 'category',
@@ -34,6 +34,34 @@ const categorySlice = createSlice({
         state.categoryList.push(action.payload.data.data);
       })
       .addCase(createCategory.rejected, (state, action) => {
+        state.loading = false;
+        state.loaded = false;
+        state.error = action.error.message;
+      })
+      .addCase(updateCategory.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(updateCategory.fulfilled, (state, action) => {
+        state.loading = false;
+        state.loaded = true;
+        state.categoryList = state.categoryList.map((item) =>
+          item.id === action.payload.data.data.id ? action.payload.data.data : item
+        );
+      })
+      .addCase(updateCategory.rejected, (state, action) => {
+        state.loading = false;
+        state.loaded = false;
+        state.error = action.error.message;
+      })
+      .addCase(deleteCategory.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(deleteCategory.fulfilled, (state, action) => {
+        state.loading = false;
+        state.loaded = true;
+        state.categoryList = state.categoryList.filter((item) => item.id !== action.payload.data.data.id);
+      })
+      .addCase(deleteCategory.rejected, (state, action) => {
         state.loading = false;
         state.loaded = false;
         state.error = action.error.message;

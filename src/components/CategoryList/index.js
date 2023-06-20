@@ -9,7 +9,7 @@ import { useOutside } from '../../utils/help';
 import { createCategory, fetchCategory } from '../../apis/category';
 import { categoryLoadedSelector, categoryLoadingSelector, categorySelector } from '../../services/categoryService';
 
-const CategoryList = ({ handleOpenCategory, token, brandId }) => {
+const CategoryList = ({ handleOpenCategory, brandId }) => {
   const dispatch = useDispatch();
   const ref = useRef(null);
   const [isError, setIsError] = useState(false);
@@ -23,6 +23,7 @@ const CategoryList = ({ handleOpenCategory, token, brandId }) => {
   };
   const handleIsAddNew = () => {
     setIsAddNew(!isAddNew);
+    setIsError(false);
   };
   const addCate = () => {
     if (cate.category === '') {
@@ -41,15 +42,9 @@ const CategoryList = ({ handleOpenCategory, token, brandId }) => {
   return (
     <div className='categoryList'>
       <div className='categoryList__box' ref={ref}>
-        <div className='categoryList__header'>
-          <span>Danh mục</span>
-        </div>
+        <div className='categoryList__header'>Danh mục</div>
         <div className='categoryList__close' onClick={handleOpenCategory}>
           <img width='20' height='20' src={closeIcon} alt='' />
-        </div>
-
-        <div className='categoryList__head'>
-          <div className='categoryList__title'>Danh mục</div>
         </div>
 
         <div className='categoryList__body'>
