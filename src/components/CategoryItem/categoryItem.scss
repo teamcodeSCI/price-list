@@ -1,0 +1,61 @@
+.categoryItem {
+  position: relative;
+  display: flex;
+  background: #fff;
+  padding: 5px 10px;
+  border-radius: 6px;
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  width: 99%;
+  margin: 0 auto 13px;
+
+  &__action {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+    display: flex;
+    gap: 10px;
+    button {
+      border: none;
+      cursor: pointer;
+      display: block;
+      height: 19px;
+      width: 19px;
+      transition: all 0.2s linear;
+    }
+  }
+  &__input {
+    width: 80%;
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+
+    input {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid #ccc;
+      background: transparent;
+      font-size: 14px;
+      padding: 0;
+    }
+  }
+  &__edit {
+    background: url(../../assets/icons/edit-icon.svg) center 0 no-repeat;
+    background-size: 100%;
+  }
+  &__delete {
+    background: url(../../assets/icons/delete-icon.svg) center 0 no-repeat;
+    background-size: 100%;
+  }
+  &__save {
+    background: url(../../assets/icons/check-icon.svg) center 0 no-repeat;
+    background-size: 100%;
+  }
+  &__close {
+    background: url(../../assets/icons/closeActive-icon.svg) center 0 no-repeat;
+    background-size: 100%;
+  }
+  &__error {
+    border-color: red !important;
+  }
+}
