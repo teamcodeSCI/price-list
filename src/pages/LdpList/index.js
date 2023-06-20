@@ -110,7 +110,7 @@ const LdpList = ({ brand, token, brandId, isSuccessUser }) => {
         )}
       </div>
       {openAddLdp && <AddLdpModal brandId={brandId} token={token} handleAddLdp={handleAddLdp} />}
-      {openCate && <CategoryList handleOpenCategory={handleOpenCate} />}
+      {openCate && <CategoryList handleOpenCategory={handleOpenCate} token={token} brandId={brandId} />}
     </div>
   );
 };

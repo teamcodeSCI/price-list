@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchCategory } from '../apis/category';
+import { createCategory, fetchCategory } from '../apis/category';
 
 const categorySlice = createSlice({
   name: 'category',
@@ -18,12 +18,25 @@ const categorySlice = createSlice({
       .addCase(fetchCategory.fulfilled, (state, action) => {
         state.loading = false;
         state.loaded = true;
-        state.categoryList = action.payload.data;
+        state.categoryList = action.payload.data.data;
       })
       .addCase(fetchCategory.rejected, (state, action) => {
         state.loading = false;
         state.loaded = false;
-        state.error = action.payload;
+        state.error = action.payload.error;
+      })
+      .addCase(createCategory.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(createCategory.fulfilled, (state, action) => {
+        state.loading = false;
+        state.loaded = true;
+        state.categoryList.push(action.payload.data.data);
+      })
+      .addCase(createCategory.rejected, (state, action) => {
+        state.loading = false;
+        state.loaded = false;
+        state.error = action.error.message;
       });
   },
 });

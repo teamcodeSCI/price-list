@@ -44,7 +44,7 @@ const AddLdpModal = ({ handleAddLdp, brandId, token }) => {
               - - - Chọn nhóm dịch vụ - - -
             </option>
             {categoryLoaded &&
-              category.data.map((item) => (
+              category.map((item) => (
                 <option key={item.id} value={item.id}>
                   {item.category}
                 </option>
