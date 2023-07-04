@@ -69,7 +69,7 @@ const LdpItem = (props) => {
               Chọn nhóm dịch vụ
             </option>
             {loadedCate &&
-              cate.data.map((item) => (
+              cate.map((item) => (
                 <option key={item.id} value={item.id}>
                   {item.category}
                 </option>
