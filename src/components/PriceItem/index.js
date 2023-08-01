@@ -94,7 +94,7 @@ const PriceItem = ({ priceId, name, price, percent, discount, promotion, descrip
               type='number'
               name='discount'
               placeholder='Nhập % giảm ...'
-              value={editInfo.percent || 0}
+              value={editInfo.discount || 0}
               onChange={handleEditInfo}
             />
           </li>
