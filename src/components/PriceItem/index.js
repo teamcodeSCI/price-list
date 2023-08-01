@@ -59,7 +59,9 @@ const PriceItem = ({ priceId, name, price, percent, discount, promotion, descrip
             {formatMoney(discount)} {isTitle ? '' : 'Đ'}
           </li>
           <li className='priceItem__promotion'>{promotion}</li>
-          <li className='priceItem__description'>{description}</li>
+          <li className='priceItem__description'>
+            <span>{description}</span>
+          </li>
           {!isTitle && (
             <li className='priceItem__action'>
               <button className='priceItem__edit' onClick={handleIsEdit}></button>
