@@ -26,7 +26,7 @@ const priceSlice = createSlice({
       .addCase(createPrice.fulfilled, (state, action) => {
         state.loading = false;
         state.loaded = true;
-        state.priceList.unshift(action.payload.data.data);
+        state.priceList.push(action.payload.data.data);
       })
       .addCase(createPrice.rejected, (state, action) => {
         state.loading = false;
